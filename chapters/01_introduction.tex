@@ -1,6 +1,19 @@
 \chapter{Einleitung}
 \label{chap:introduction}
 
+Mit der Veröffentlichung von ChatGPT 3.5 im November 2022 \autocite{openai2022} wurde der breiten Öffentlichkeit erstmals der Zugang zu einem niederschwelligen KI-Tool zur leichten Informationsbeschaffung ermöglicht, wo dies zuvor über Suchmaschinen erarbeitet werden musste. Schätzungen zufolge erreichte ChatGPT 3.5 innerhalb von zwei Monaten 100 Millionen Nutzer \autocite{hu2023}. Die steigende Nutzung und Nachfrage im beruflichen und privaten Alltag führt unweigerlich zu neuen Akteuren im Markt, darunter Google, Meta und Anthropic \autocite{le2025llmspredictprerequisiteskills}. Das Resultat ist eine enorme Menge an KI-generierten Inhalten in aller Form, also Text, Video, Bild und Audio. Die Art und Weise, wie digitale Inhalte konsumiert und reproduziert werden, hat sich folglich radikal verändert. Insbesondere Betreiber und Nutzer von sozialen Medien werden mit Inhalten konfrontiert, die durch Bots oder Sprachmodelle erzeugt werden. Daraus resultiert unweigerlich auch eine zunehmende und zunehmend einfachere Verbreitung von Mis- und Desinformation auf diesen Plattformen. Dies wirft gesellschaftliche und ethische Fragen auf, da Sprachmodelle gezielt zur Meinungsbeeinflussung genutzt werden können, indem authentisch und menschlich klingende Inhalte produziert und bewusst verbreitet werden \autocite{coeckelbergh2025}. Soziale Netzwerke wie Reddit basieren qua Definition auf genuin menschlichem Austausch. Dennoch wird geschätzt, dass sich die Zahl der vermutlich von KI generierten Posts auf Reddit zwischen 2024 und 2025 um ca. 13 \% erhöht hat \autocite{lambert2025}. Umso wichtiger ist es also, KI-generierte Inhalte insbesondere in Form von Text auf Reddit zu erkennen.
+
+\section{Zielsetzung}
+
+Das zentrale Ziel dieser Bachelorarbeit ist die Evaluierung verschiedener Machine Learning-Modelle zur Erkennung von KI-generiertem Text. Die dazu verwendeten Daten stammen von der Plattform Reddit aus unterschiedlichen Subreddits. Um einen dazugehörigen KI-generierten Datensatz zu erzeugen, wurde das LLM Llama-3.1-8B-Instruct verwendet. Die Anweisung lautete dabei, einen Post zum jeweiligen Subreddit, auf Basis des Titels und des Inhalts des originalen Posts zu generieren. Auf diesen beiden Datensätzen soll dann untersucht werden, inwieweit bereits trainierte Modelle in der Lage sind,  zwischen von Menschen und von KI generierten Texten zu unterscheiden. \\
+
+\section{Relevanz der Erkennung KI-generierter Texte}
+Warum eine zuverlässige Erkennung von KI-generiertem Text relevant ist, begründen \autocite{bevendorff2026overviewpan2026voightkampff}: \\
+„Recognizing the ‚fingerprint‘ of AI text generation is the foundation for a healthy information
+ecosystem in the future, but also to prevent model collapse when LLMs are trained increasingly
+on their own output. However, LLM detection remains a challenge, especially across text
+domains, but also in the face of potential LLM style obfuscations.”
+
 \section{Abschnitt}
 
 Dies ist ein Beispiel für einen Abschnitt.
