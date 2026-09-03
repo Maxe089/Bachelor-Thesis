@@ -1,56 +1,67 @@
 \chapter{Einleitung}
 \label{chap:introduction}
 
+\section{Hinführung zur Thematik}
 Mit der Veröffentlichung von ChatGPT 3.5 im November 2022 \autocite{openai2022} wurde der breiten Öffentlichkeit erstmals der Zugang zu einem niederschwelligen KI-Tool zur leichten Informationsbeschaffung ermöglicht, wo dies zuvor über Suchmaschinen erarbeitet werden musste. Schätzungen zufolge erreichte ChatGPT 3.5 innerhalb von zwei Monaten 100 Millionen Nutzer \autocite{hu2023}. Die steigende Nutzung und Nachfrage im beruflichen und privaten Alltag führt unweigerlich zu neuen Akteuren im Markt, darunter Google, Meta und Anthropic \autocite{le2025llmspredictprerequisiteskills}. Das Resultat ist eine enorme Menge an KI-generierten Inhalten in aller Form, also Text, Video, Bild und Audio. Die Art und Weise, wie digitale Inhalte konsumiert und reproduziert werden, hat sich folglich radikal verändert. Insbesondere Betreiber und Nutzer von sozialen Medien werden mit Inhalten konfrontiert, die durch Bots oder Sprachmodelle erzeugt werden. Daraus resultiert unweigerlich auch eine zunehmende und zunehmend einfachere Verbreitung von Mis- und Desinformation auf diesen Plattformen. Dies wirft gesellschaftliche und ethische Fragen auf, da Sprachmodelle gezielt zur Meinungsbeeinflussung genutzt werden können, indem authentisch und menschlich klingende Inhalte produziert und bewusst verbreitet werden \autocite{coeckelbergh2025}. \\
 Wie so eine gezielte Meinungsbeeinflussung aussehen kann, hat sich im April 2025 gezeigt, als bekannt wurde, dass Forschende der Universität Zürich ein von Reddit bzw. dem Subreddit „r/changemyview“ nicht autorisiertes Experiment durchführten \autocite{redditmodcmv2025}. Im Rahmen des Experiments sollte herausgefunden werden, inwieweit sich Reddit-Nutzer von KI-Chatbots in ihrer Meinung beeinflussen lassen \autocite{osfunizurich}. Auf dem Subreddit „r/changemyview“ können Nutzer kontroverse Meinungen in Posts äußern und laden andere Nutzer damit zu einer argumentativen Diskussion ein, die die Meinung entweder verstärken oder den Nutzer zu einer Meinungsänderung bewegen können. Die Gegenstände der Diskussionen sind dabei nicht nur politisch-gesellschaftlicher Natur, sondern befassen sich auch mit alltäglichen Lebensfragen. Jeder Subreddit hat üblicherweise eine Reihe von Regeln, die dem Subreddit eigen sind und deren Einhaltung von einem Moderationsteam überwacht wird. Der Subreddit „r/changemyview“ verbietet in seinem Regelwerk explizit die Nutzung und Veröffentlichung KI-generierter Inhalte \autocite{cmvwiki}. Im Experiment der Universität Zürich wurden unter Zuhilfenahme von Sprachmodellen Kommentare erzeugt, die dann unter den Posts veröffentlicht wurden. Die Anweisung an die Sprachmodelle lautete, den Veröffentlicher des Posts von seiner Meinung abzubringen. Eine der zentralen Forschungsfragen befasste sich damit, ob die Personalisierung von Argumenten verschiedener Sprachmodelle auf Basis von Nutzermerkmalen deren Überzeugungskraft steigern kann. Dafür wurden verschiedene Test-Accounts angelegt, die spezifische Lebenserfahrungen repräsentieren, darunter ein Betroffener von sexueller Gewalt, ein Traumaberater und ein Kritiker der Black Lives Matter-Bewegung \autocite{redditmodcmv2025}. Im Ergebnis kamen die Forschenden zu dem Schluss, dass die KI-generierten Kommentare drei bis sechsmal überzeugender waren, als von Menschen verfasste Kommentare \autocite{unizurichextendedabstract}. Die Studie wurde nach öffentlicher Kritik und nach einem Verstoß gegen die Subreddit-Regeln nicht veröffentlicht \autocite{redditmodcmv2025}. \\
-Wie der Einsatz von KI-generierten Inhalten abseits des Forschungskontexts auch im politischen Kontext zur Meinungsbeeinflussung genutzt werden kann, zeigen die Geschehnisse um die Alternative für Deutschland (AfD). Mithilfe des KI-Tools „Alternita Studio“, das Sprachmodelle von OpenAI, Google und Anthropic nutzt, werden „publizierbereite Posts mit Textfeldern vor Hintergrundbildern oder Videoclips“ erzeugt \autocite{widmer2026}. Grundlage des Tools sind Nachrichtenartikel, die anhand eines „Viralitätsscores“ gerankt werden. Auf Basis dieser Artikel und dem „persönlichen“ Profil des Anwenders werden dann automatisiert Beiträge für Soziale Medien generiert \autocite{alternitastudiohp}. Ziel ist dabei, durch die Orientierung an polarisierenden Nachrichtenartikeln bzw. den darin behandelten Themen, eine möglichst große Viralität der erzeugten Beiträge zu erreichen \autocite{widmer2026}. Die Anwälte der AfD erklärten, dass ein Export von KI-generierten Bildern aus dem Tool nicht möglich sei, ohne eine explizite Kennzeichnung der Herkunft. Allerdings stellte sich heraus, dass diese Schranke vergleichsweise einfach umgangen werden kann. KI-generierte Texte werden überhaupt nicht als solche kenntlich gemacht \autocite{correctiv2026}. Sowohl Google untersagt in seinen Richtlinien die „Umgehung von Schutzmaßnahmen gegen Missbrauch oder Sicherheitsfiltern, z. B. durch Manipulation des Modells“ \autocite{googlerichtlinie}, ebenso wie der EU AI Act \autocite{EU_AI_Act_2024, Art. 50}. \\
+Wie der Einsatz von KI-generierten Inhalten abseits des Forschungskontexts auch im politischen Kontext zur Meinungsbeeinflussung genutzt werden kann, zeigen die Geschehnisse um die Alternative für Deutschland (AfD). Mithilfe des KI-Tools „Alternita Studio“, das Sprachmodelle von OpenAI, Google und Anthropic nutzt, werden „publizierbereite Posts mit Textfeldern vor Hintergrundbildern oder Videoclips“ erzeugt \autocite{widmer2026}. Grundlage des Tools sind Nachrichtenartikel, die anhand eines „Viralitätsscores“ gerankt werden. Auf Basis dieser Artikel und dem „persönlichen“ Profil des Anwenders werden dann automatisiert Beiträge für Soziale Medien generiert \autocite{alternitastudiohp}. Ziel ist dabei, durch die Orientierung an polarisierenden Nachrichtenartikeln bzw. den darin behandelten Themen, eine möglichst große Viralität der erzeugten Beiträge zu erreichen \autocite{widmer2026}. Die Anwälte der AfD erklärten, dass ein Export von KI-generierten Bildern aus dem Tool nicht möglich sei, ohne eine explizite Kennzeichnung der Herkunft. Allerdings stellte sich heraus, dass diese Schranke vergleichsweise einfach umgangen werden kann. KI-generierte Texte werden überhaupt nicht als solche kenntlich gemacht \autocite{correctiv2026}. Sowohl Google untersagt in seinen Richtlinien die „Umgehung von Schutzmaßnahmen gegen Missbrauch oder Sicherheitsfiltern, z. B. durch Manipulation des Modells“ \autocite{googlerichtlinie}, ebenso wie der EU AI Act \autocite[Art. 50]{EU_AI_Act_2024}. \\
 Warum aber eine zuverlässige Erkennung von KI-generiertem Text relevant ist, begründen \autocite{bevendorff2026overviewpan2026voightkampff}:
 „Recognizing the ‚fingerprint‘ of AI text generation is the foundation for a healthy information
 ecosystem in the future, but also to prevent model collapse when LLMs are trained increasingly
 on their own output. However, LLM detection remains a challenge, especially across text
 domains, but also in the face of potential LLM style obfuscations.” \\
-Die Relevanz der Erkennung KI-generierter Texte lässt sich anhand verschiedener Dimensionen erklären. Zum einen hat sie eine Bedeutung für das Sozialgefüge. Das Weltwirtschaftsforum sieht in seinem Global Risks Report in Technologien der künstlichen Intelligenz eine Gefahr für den gesellschaftlichen Zusammenhalt. In dem von ihnen durchgeführten Global Risks Perception Survey kommen sie zu dem Schluss, dass die negativen Folgen von KI-Technologien zu den größten globalen Langzeitrisiken zählen. Mis- und Desinformation, die durch KI generiert werden, stellen bereits heute ein großes Problem dar, dass sich aufgrund der technologischen Entwicklung in der Zukunft weiter verschärfen wird. Es wird zunehmend schwerer werden, zwischen echten und künstlichen Inhalten zu unterscheiden \autocite{WEF_GlobalRisks_2026}. \\
+Die Relevanz der Erkennung KI-generierter Texte lässt sich anhand verschiedener Dimensionen erklären. Zum einen hat sie eine Bedeutung für das Sozialgefüge. Das Weltwirtschaftsforum sieht in seinem Global Risks Report in Technologien der künstlichen Intelligenz eine Gefahr für den gesellschaftlichen Zusammenhalt. In dem von ihnen durchgeführten Global Risks Perception Survey kommen sie zu dem Schluss, dass die negativen Folgen von KI-Technologien zu den größten globalen Langzeitrisiken zählen. Mis- und Desinformation, die durch KI generiert werden, stellen bereits heute ein großes Problem dar, das sich aufgrund der technologischen Entwicklung in der Zukunft weiter verschärfen wird. Es wird zunehmend schwerer werden, zwischen echten und künstlichen Inhalten zu unterscheiden \autocite{WEF_GlobalRisks_2026}. \\
+Aus der zunehmenden Verbreitung generativer KI und den damit erzeugten Inhalten können auch auf politischer Ebene potenzielle Risiken entstehen. Eine Herausforderung für die Demokratie birgt unter anderem die Möglichkeit, den politischen Diskurs gezielt zu beeinflussen und zu manipulieren. Dies kann durch die Erstellung und Verbreitung von wissentlichen oder unwissentlichen Falschinformationen erfolgen. Zudem wird vermutet, dass die Kombination von Sprachmodellen und sozialen Medien, die ohnehin bestehende politische Polarisierung weiter verschärfen kann. Bereits vor der flächendeckenden Ausbreitung von Sprachmodellen wurden Algorithmen des Machine Learning im Wahlkampf verwendet, wie der Fall von Cambridge Analytica in den USA gezeigt hat. Sprachmodelle erleichtern die gezielte Ansprache der Wählerschaft mit für sie relevanten Inhalten noch weiter \autocite{coeckelbergh2025}.
+Offensichtlich stellt sich die Frage nach wahr und falsch nicht erst seit dem Aufkommen der großen Sprachmodelle, jedoch verleiht dieser Umstand der Beurteilung von wahr und falsch eine neue Dimension. Werden die Ergebnisse der Sprachmodelle unhinterfragt übernommen, beeinträchtigt dies die Autonomie der Meinungsbildung des Einzelnen.
+Schlussendlich ist eine gezielte Manipulation und somit die Beeinträchtigung der menschlichen Autonomie immer auch mit ethischen Fragen der individuellen Selbstbestimmung verbunden. Wie einfach die eigene Entscheidungsfindung und -bewertung durch künstliche Intelligenz beeinflusst werden kann, zeigte eine Studie durch den Einsatz von GPT-4 und einer gezielten Personalisierung der Künstlichen Intelligenz basierend auf soziodemografischen Merkmalen. Ihre Ergebnisse zeigten, dass künstliche Intelligenz und personalisierte Argumente stets überzeugender als vergleichbare, von Menschen formulierte Argumente waren. Vermenschlichte Künstliche Intelligenz birgt somit das Potenzial nicht nur Informationen bereitzustellen, sondern diese auch gezielt zu steuern \autocite{Salvi_Ribeiro_Gallotti_West_2025}.
 
 
 \section{Reddit als Untersuchungsumgebung}
 Die Plattform Reddit etablierte sich in den letzten Jahren zu einer der reichweitenstärksten Netzwerke im Internet. Charakteristisch für Reddit ist die Unterteilung in Subreddits mit eigenen spezifischen Regeln, Normen und Subkulturen, die sich als Mikrokosmen mit eigener Dynamik verstehen lassen \autocite{proferes2021}.
 Soziale Netzwerke sind für viele ihrer Nutzer eine Art „Safe Space“. Reddit basiert also qua Definition auf genuin menschlichem Austausch, den Nutzer aktiv suchen und fordern. Somit scheint Reddit als das „letzte Refugium für echte menschliche Erfahrungen im Netz“ \autocite{schiffer2026}.  Dennoch wird geschätzt, dass sich die Zahl der vermutlich von KI generierten Posts auf Reddit zwischen 2024 und 2025 um ca. 13 \% erhöht hat \autocite{lambert2025}.
-Reddit selbst definiert keine expliziten Regeln bzw. Verbote für die Nutzung generativer künstlicher Intelligenz. Allerdings sind die Subreddits in der Lage ihre eigenen Regeln im Rahmen der Reddit-Nutzungsbedingungen festzulegen. Dazu gehört auch die Möglichkeit eines Gebots oder eines Verbots der Nutzung von generativer KI zur Erstellung von Posts oder Kommentaren, die in ihrer Restriktivität unterschiedlich sein können \autocite{redditrichtlinie}.
+Reddit selbst definiert keine expliziten Regeln bzw. Verbote für die Nutzung generativer künstlicher Intelligenz. Allerdings sind die Subreddits in der Lage ihre eigenen Regeln im Rahmen der Reddit-Nutzungsbedingungen festzulegen. Dazu gehört auch die Möglichkeit eines Gebots oder eines Verbots der Nutzung von generativer KI zur Erstellung von Posts oder Kommentaren, die in ihrer Restriktivität unterschiedlich sein können \autocite{redditrichtlinie}. In einer Untersuchung wurde herausgefunden, dass sich die Anzahl der Subreddits, die sich Regeln zur Nutzung von Künstlicher Intelligenz auferlegt haben, im Jahr 2024 um 128,3 \% im Vergleich zu 2023 vergrößert hat. Viele der Subreddit-Regeln zur KI-Nutzung enthalten entweder ein komplettes Verbot von KI-generierten Inhalten oder fordern zumindest eine Kennzeichnung durch die Nutzer. Dies spricht generell eher für eine Ablehnung von generativer KI auf Reddit, auch wenn es Unterschiede zwischen den einzelnen Communities gibt \autocite{Lloyd_2025}.\\
+Dieses Spannungsfeld aus Subreddits bzw. der Reddit-Nutzerschaft im Allgemeinen mit einer kritischen Haltung gegenüber generativer Künstlicher Intelligenz und einem zunehmenden Anteil KI-generierter Inhalte an allen Posts und Kommentaren hat Reddit zu einer interessanten Untersuchungsumgebung gemacht. Generell lässt sich erkennen, dass immer mehr wissenschaftliche Arbeiten aus den unterschiedlichsten Disziplinen Reddit, aufgrund der Charakteristika des sozialen Mediums, als Datenquelle für Experimente und Studien heranziehen \autocite{proferes2021}. \\
 
 
-Reddit selbst definiert keine Regeln zu KI nutzung (Quelle nutzungsbedingungen)
-Subbredits mit eigenen Regeln zu KI-Nutzung etabliert --> Studie eher gegen KI nutzung Lloyd
-Genau diese Kombi, also eher gegen KI aber immer mehr Inhalte KI hat Thema Reddit für forschung so relevant gemacht --> quelle proferes
-
-Umso wichtiger ist es also, KI-generierte Inhalte insbesondere in Form von Text auf Reddit zu erkennen. \\
-Soziale Netzwerke sind für viele ihrer Nutzer eine Art „Safe Space“. Sie suchen dort gezielt nach menschlichem Austausch. Reddit scheint als das „letzte Refugium für echte menschliche Erfahrungen im Netz“ \autocite{schiffer2026}. \\
-
-
-
-
-
-\section{Zielsetzung}
-
-Das zentrale Ziel dieser Bachelorarbeit ist die Evaluierung verschiedener Machine Learning-Modelle zur Erkennung von KI-generiertem Text. Die dazu verwendeten Daten stammen von der Plattform Reddit aus unterschiedlichen Subreddits. Um einen dazugehörigen KI-generierten Datensatz zu erzeugen, wurde das LLM Llama-3.1-8B-Instruct verwendet. Die Anweisung lautete dabei, einen Post zum jeweiligen Subreddit, auf Basis des Titels und des Inhalts des originalen Posts zu generieren. Auf diesen beiden Datensätzen soll dann untersucht werden, inwieweit bereits trainierte Modelle in der Lage sind,  zwischen von Menschen und von KI generierten Texten zu unterscheiden. \\
-
-\subsection{Unterabschnitt}
-
-Dies ist ein Beispiel für einen Unterabschnitt.
-
-\subsubsection{Unterunterabschnitt}
-
-Dies ist ein Beispiel für einen Unterunterabschnitt.
-
-\section{Forschungsfragen}
-
-Dies ist ein Beispiel, wie man Forschungsfragen formatiert.
+\section{Zielsetzung, Forschungsfragen und Hypothesen}
+Aus der geschilderten Relevanz ergibt sich die Notwendigkeit KI-generierte Inhalte, vor allem in Form von Text, zu erkennen, um bewusst gestreute Falschinformation erkennbar zu machen. Daher ist das zentrale Ziel dieser Bachelorarbeit die Evaluierung verschiedener bestehender Machine Learning-Modelle hinsichtlich ihrer Fähigkeit KI-generierten Text erfolgreich zu erkennen. Die dazu verwendeten Daten stammen von der Plattform Reddit aus unterschiedlichen Subreddits. Es handelt sich beim verwendeten Datensatz sowohl um Posts, als auch Kommentare. \\
+Auf Basis der Zielsetzung lassen sich folgende Forschungsfragen ableiten: \\
 
 \hypertarget{rq:1}{
-    \subsubsection{F\textsubscript{1}: Ist dies eine Forschungsfrage?}
+    \subsubsection{F\textsubscript{1}: Inwieweit sind etablierte, vortrainierte ML-Detektoren in der Lage, zwischen menschlich verfassten und mittels verschiedener LLMs generierten Reddit-Posts zu unterscheiden?}
 }
 
-Man kann auf Forschungsfragen wie folgt verweisen: \hyperlink{rq:1}{F\textsubscript{1}} ist ein Beispiel für eine Forschungsfrage.
+\hypertarget{rq:2}{
+    \subsubsection{F\textsubscript{2}: Führt die Kombination der vier Einzeldetektoren zu einem Ensemble mit Mehrheitsentscheid zu einer signifikant höheren Erkennungsgenauigkeit als der jeweils beste Einzeldetektor?}
+}
 
-\section{Kapitelverweise}
+\hypertarget{rq:3}{
+    \subsubsection{F\textsubscript{3}: In welchem Umfang und mit welcher zeitlichen Entwicklung äußern Nutzer auf Reddit in Kommentaren einen Verdacht, dass ein Post KI-generiert wurde?}
+}
 
-Man kann auf andere Kapitel wie folgt verweisen: Kapitel~\ref{chap:conclusion} ist das Abschlusskapitel.
+\hypertarget{rq:4}{
+    \subsubsection{F\textsubscript{4}: Besteht ein Zusammenhang zwischen der von den ML-Detektoren getroffenen Klassifikation und den in Kommentaren geäußerten menschlichen Verdachtsmomenten?}
+}
+
+Daraus ergeben sich wiederum folgende Hypothesen dieser Arbeit:
+
+\hypertarget{hp:1}{
+    \subsubsection{H\textsubscript{1}: Die evaluierten Detektoren erzielen auf dem von mir verwendeten Reddit-Datensatz eine vergleichbare Erkennungsgenauigkeit wie in den jeweiligen Originalstudien berichtet (vgl. Kapitel ~\ref{chap:related-work}), da diese überwiegend auf ähnlichen Textdomänen trainiert bzw. evaluiert wurden.}
+}
+
+\hypertarget{hp:2}{
+    \subsubsection{H\textsubscript{2}: Das Ensemble aus allen vier Detektoren übertrifft die Erkennungsgenauigkeit jedes Einzelmodells, insbesondere im Hinblick auf die Minimierung von False Negatives.}
+}
+
+\hypertarget{hp:3}{
+    \subsubsection{H\textsubscript{3}: Ausgehend von den Ergebnissen von \autocite{lambert2025}, wird davon ausgegangen, dass sich der Anteil von KI-Verdachtsäußerungen in Kommentaren im Untersuchungszeitraum vergrößert.
+    }
+}
+
+\hypertarget{hp:4}{
+    \subsubsection{H\textsubscript{4}: Es wird ein positiver Zusammenhang zwischen der von den ML-Detektoren getroffenen Klassifikation und den in Kommentaren geäußerten menschlichen Verdachtsmomenten erwartet.}
+}
+
+\section{Aufbau der Arbeit}
+
+Hier folgt der Aufbau der Arbeit.
