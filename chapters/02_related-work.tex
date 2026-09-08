@@ -1,4 +1,4 @@
-\chapter{Theoretischer Hintergrund}
+\chapter{Theoretische Grundlagen und Forschungsstand}
 \label{chap:related-work}
 Im Laufe der Zeit haben sich parallel zu den generativen Modellen entsprechende Methoden zur
 Erkennung der erstellten Inhalte entwickelt. \\
@@ -19,22 +19,47 @@ dass Mischformen von durch menschliche und künstliche Intelligenz verfassten Te
 existieren. Dazu zählen „Sequence Labeling“-Ansätze, „Change Point Detection“-Methoden und
 die „Multi-Scale“-Analyse von Grenzwerten.
 
+\section{Large Language Models und Textgenerierung}
+
+\section{Charakteristika KI-generierter Texte}
+
+\section{Verfahren zur Erkennung KI-generierter Texte}
+
+\section{Die untersuchten Detektoren}
+Im Rahmen dieser Bachelorarbeit sollen vier verschiedene Detektoren zur Erkennung von KI-generiertem Text evaluiert werden, welche im Folgenden beschrieben werden.
+
+\subsection{RoBERTa OpenAI Detector}
+Die Modelle RoBERTa Base OpenAI Detector bzw. RoBERTa Large OpenAI Detector waren einer der ersten Versuche Text, der durch Large Language Models generiert wurde, zu erkennen. Grundlage dieser beiden Modelle ist RoBERTa \autocite{RoBERTa2019}, was wiederum eine verbesserte Variante des BERT-Modells ist. Diese Modelle verwenden die Encoder-Architektur und sind damit lediglich in der Lage Text zu verstehen und nicht zur Textgenerierung fähig. Mittels Fine-Tuning auf einem Datensatz, der aus von Menschen generiertem Text und Output von GPT-2 besteht, wurde RoBERTa auf die Erkennung von
+KI-generierten Texten angepasst. Der von Menschen generierte Text stammt aus dem WebText-Datensatz, welcher auch für das initiale Training von GPT-2 verwendet wurde \autocite{RoBERTaDetector2019}. Gemessen am Volumen ist Google die größte Quelle für den WebText-Datensatz, wobei Reddit nicht als solches unter den 1.000 häufigsten Datenquellen zu finden ist \autocite{gpt2dataset}. Für den GPT-2-Output wurden vier verschiedene Varianten des Modells mit einer unterschiedlichen Anzahl an Parametern (124 Millionen, 355 Millionen, 774 Millionen und 1,5 Milliarden) verwendet.\\
+Solaiman et al. \autocite{RoBERTaDetector2019} kommen zu dem Ergebnis, dass mit diesem Modell KI-generierter Text mit einer Genauigkeit von ungefähr 95 \% erkannt wird. Die Genauigkeit wurde dabei anhand von 5.000 Stichproben aus dem WebText-Datensatz und 5.000 mit GPT-2 generierten Texten, die nicht im Training der GPT-2-Modelle verwendet wurden, mit einer Länge von jeweils 510 Token gemessen. \\
+\autocite{Ibrahim2023UsingAD} untersuchte die Leistung des RoBERTa Large OpenAI Detectors im Kontext von Erwachsenenbildung. Bei den von Menschen generierten Texten handelt es sich um eine Zufallsstichprobe von 120 englischen Essays, die von nicht-muttersprachlichen Studenten an einer amerikanischen Universität in Kuwait im Rahmen eines Projekts zum Thema „Forschungsargumentation“ verfasst wurden. Durch eine zeitliche Beschränkung auf Essays, die vor der Veröffentlichung von ChatGPT verfasst wurden, sollte sichergestellt werden, dass die eingereichten Essays nicht mithilfe von Künstlicher Intelligenz generiert wurden. Um die KI-generierte Stichprobe zu erzeugen, wurde ChatGPT 3.5 genutzt, wobei als Prompt die Projektbeschreibung des Kurses übergeben wurde, ebenso wie eine Einschränkung auf Themen, die auch in den von Menschen verfassten Essays vorkamen. Getestet wurden zwei Modelle, die auf dem RoBERTa OpenAI Detector basieren, mit dem Ergebnis, dass die Modelle mit einer Genauigkeit von 89,2 \% zwischen von Menschen geschriebenen und von KI generierten Texten unterscheiden können.\\
+\textcolor{red}{!!!Hier noch Limitationen des Modells aufzählen!!!} \\
+Der RoBERTa OpenAI Detector soll im Rahmen dieser Bachelorarbeit als Baseline fungieren, da er im Kontext des frühen Entwicklungsstadiums der LLMs veröffentlicht wurde.
+
+\subsection{ChatGPT Detector RoBERTa}
+Der ChatGPT Detector RoBERTa basiert ebenfalls auf dem Modell RoBERTa.
+
+
+\subsection{RADAR}
+
+\subsection{Binoculars}
+
 \section{Tabellen}
 
 \begin{table}[htbp]
-    \centering
-    \caption{Ein- und Ausschlusskriterien für das Literatur-Review.}
-    \label{table:review-criteria}
-    \begin{tabularx}{1.0\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
-        \toprule
-        \textbf{Einschlusskriterien}              & \textbf{Ausschlusskriterien}           \\
-        \midrule
-        Englische Sprache                         & Nicht-englische Sprache                \\
-        Veröffentlicht 2015–2025                  & Veröffentlicht vor 2015                \\
-        Peer-reviewed                             & Nicht peer-reviewed                    \\
-        Liefert Methode und empirische Ergebnisse & Irrelevantes Fachgebiet oder Off-Topic \\
-        \bottomrule
-    \end{tabularx}
+  \centering
+  \caption{Ein- und Ausschlusskriterien für das Literatur-Review.}
+  \label{table:review-criteria}
+  \begin{tabularx}{1.0\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+    \toprule
+    \textbf{Einschlusskriterien}              & \textbf{Ausschlusskriterien}           \\
+    \midrule
+    Englische Sprache                         & Nicht-englische Sprache                \\
+    Veröffentlicht 2015–2025                  & Veröffentlicht vor 2015                \\
+    Peer-reviewed                             & Nicht peer-reviewed                    \\
+    Liefert Methode und empirische Ergebnisse & Irrelevantes Fachgebiet oder Off-Topic \\
+    \bottomrule
+  \end{tabularx}
 \end{table}
 
 Man kann Tabellen erstellen und sie wie folgt referenzieren: Tabelle~\ref{table:review-criteria} zeigt die Ein- und Ausschlusskriterien für das Literatur-Review.
