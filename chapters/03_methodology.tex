@@ -2,8 +2,20 @@
 \label{chap:methodology}
 Im Folgenden soll die Datengrundlage und die verwendete Methode genauer erläutert werden.
 
+\section{Forschungsdesign}
+
 \section{Datengrundlage}
 Grundlage dieser Arbeit sind Posts und Kommentare, die auf dem sozialen Medium Reddit veröffentlicht worden sind und mithilfe von einer API bezogen wurden. Es handelt sich dabei um Datensätze aus \dots verschiedenen Subreddits, die im Zeitraum von \dots bis \dots veröffentlicht wurden.
+
+\section{Ethische und rechtliche Rahmenbedingungen der Datenerhebung}
+
+\section{Erstellung des KI-Datensatzes}
+
+\section{Evaluierte Detektoren}
+Drei der vier von mir verwendeten Detektoren werden in Python über die transformers-Bibliothek, die von Hugging Face zur Verfügung gestellt wird, geladen. Durch die Nutzung der einheitlichen Schnittstelle wird ein konsistenter In- und Output erreicht. Lediglich Binoculars muss über einen eigens geschriebenen Quellcode geladen werden. Für alle Modelle wird der Textinput auf 512 Token trunkiert, da dies die maximale Inputlänge des RoBERTa Large OpenAI Detectors ist. Bei allen Modellen handelt es sich um binäre Klassifikatoren, deren Output sich leicht voneinander unterscheidet. Menschliche beziehungsweise KI-generierte Texte werden wie folgt klassifiziert: vom RoBERTa Large OpenAI Detector als „Real“ oder „Fake“, vom ChatGPT Detector RoBERTa als „Human“ oder „ChatGPT“, von Binoculars als „Most likely human-generated“ oder „Most likely AI-generated“.
+
+\section{Evaluationsmetriken}
+
 
 \section{Abbildungen}
 
