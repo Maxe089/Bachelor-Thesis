@@ -12,7 +12,25 @@ Grundlage dieser Arbeit sind Posts und Kommentare, die auf dem sozialen Medium R
 \section{Erstellung des KI-Datensatzes}
 
 \section{Evaluierte Detektoren}
-Drei der vier von mir verwendeten Detektoren werden in Python über die transformers-Bibliothek, die von Hugging Face zur Verfügung gestellt wird, geladen. Durch die Nutzung der einheitlichen Schnittstelle wird ein konsistenter In- und Output erreicht. Lediglich Binoculars muss über einen eigens geschriebenen Quellcode geladen werden. Für alle Modelle wird der Textinput auf 512 Token trunkiert, da dies die maximale Inputlänge des RoBERTa Large OpenAI Detectors ist. Bei allen Modellen handelt es sich um binäre Klassifikatoren, deren Output sich leicht voneinander unterscheidet. Menschliche beziehungsweise KI-generierte Texte werden wie folgt klassifiziert: vom RoBERTa Large OpenAI Detector als „Real“ oder „Fake“, vom ChatGPT Detector RoBERTa als „Human“ oder „ChatGPT“, von Binoculars als „Most likely human-generated“ oder „Most likely AI-generated“.
+Drei der vier von mir verwendeten Detektoren werden in Python über die transformers-Bibliothek, die von Hugging Face zur Verfügung gestellt wird, geladen. Durch die Nutzung der einheitlichen Schnittstelle wird ein konsistenter In- und Output erreicht. Lediglich Binoculars muss über einen eigens geschriebenen Quellcode geladen werden. Für alle Modelle wird der Textinput auf 512 Token trunkiert, da dies die maximale Inputlänge des RoBERTa Large OpenAI Detectors ist. Bei allen Modellen handelt es sich um binäre Klassifikatoren, deren Output sich leicht voneinander unterscheidet, wie in Tabelle~\ref{table:ki_labels} zu sehen ist.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Übersicht der Ausgabelabels der untersuchten Klassifikationsmodelle}
+    \label{table:ki_labels}
+    \begin{tabularx}{1.0\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+        \toprule
+        \textbf{Modell}               & \textbf{Label für KI}      & \textbf{Label für Mensch}     \\
+        \midrule
+        RoBERTa Large OpenAI Detector & „Fake“                     & „Real“                        \\
+        ChatGPT Detector RoBERTa      & „ChatGPT“                  & „Human“                       \\
+        RADAR                         & „LABEL\_0“                 & „LABEL\_1“                    \\
+        Binoculars                    & „Most likely AI-generated“ & „Most likely human-generated“ \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+Die Auswahl der Detektoren werde ich im Folgenden begründen. Die von mir gewählten Modelle decken die gängigen methodischen Paradigmen in der KI-Detektor-Forschung ab. Zum einen nutze ich die Klassifikatoren aus dem Bereich des Supervised Learning, RoBERTa Large OpenAI Detector und ChatGPT Detector RoBERTa, die den historischen Standard repräsentieren. Damit könnte gezeigt werden, wie stark Detektoren auf neuere generative Modell reagieren. Es ist davon auszugehen, dass größere, neuere Modelle diese Detektoren vor Herausforderungen stellen. Binoculars fällt in den Bereich der Zero-Shot-Verfahren und ist damit unabhängig von einem Training. So könnte gezeigt werden, wie gut diese Art von Detektor über verschiedene generierende Modelle hinweg generalisieren kann. RADAR nutzt das „Adversarial Learning“, was ein Novum in der KI-Detektor-Forschung darstellt. Interessant ist dabei vor allem, dass dieses Modell gezielt dafür trainiert worden ist, paraphrasierte Texte zu erkennen und es somit besonders robust sein sollte. Insgesamt ist davon auszugehen, dass die Supervised-Modelle zwar bei älteren Daten gute Ergebnisse erzielen, aber mit zunehmender Zeit Schwierigkeiten haben werden, KI-generierte Texte zu erkennen. Andererseits ist zu erwarten, dass RADAR und Binoculars auf neueren Daten, die potenziell mit neueren generativen Modellen erzeugt wurden, tendenziell bessere Ergebnisse erzielen.
 
 \section{Evaluationsmetriken}
 
