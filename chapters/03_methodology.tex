@@ -3,45 +3,51 @@
 Im Folgenden soll die Datengrundlage und die verwendete Methode genauer erläutert werden.
 
 \section{Forschungsdesign}
+Bei der vorliegenden Bachelorarbeit handelt es sich um eine empirische, experimentelle Evaluierungsstudie. Es liegen von Menschen verfasste Reddit-Posts und -Kommentare vor, die als Ground Truth behandelt werden. Parallel dazu werden synthetische Daten mithilfe eines großen Sprachmodells (Llama-3.1-8B-Instruct) auf Basis des Subreddits, des Titels und des Originaltextes generiert. Im Rahmen der Arbeit werden vier verschiedene Machine-Learning-Detektoren verwendet, um zu testen, wie gut diese vortrainierten Modelle auf den vorhandenen Daten generalisieren.
+In dieser Arbeit wird ein zweistufiges experimentelles A-priori-Design verwendet. In einer ersten Phase werden zwei Vorexperimente durchgeführt. Das erste Vorexperiment untersucht die Leistung der Detektoren auf einer kleineren Stichprobe der vorhandenen Daten und evaluiert zusätzlich, wie gut ein Ensemble mit Mehrheitsentscheid aus den vier Detektoren funktioniert. Im zweiten Vorexperiment soll mithilfe einer Schlagwortsuche quantifiziert werden, wie oft die Ersteller der Reddit-Posts der Nutzung von KI verdächtigt wurden und wie sich die Anzahl dieser Verdächtigungen im Laufe der Zeit entwickelt hat. Das weitere Vorgehen bzw. der Inhalt des Hauptexperiments entscheidet sich anhand des Ausgangs des ersten Vorexperiments. Sollte das Vorexperiment erfolgreich sein, die Detektoren also eine gute Leistung auf der kleineren Stichprobe zeigen, wird die Evaluation auf den gesamten Datensatz ausgeweitet und mit den Verdächtigungen aus den Kommentaren verglichen. Sollte die Erkennungsleistung der verwendeten Detektoren zu niedrig sein, werden die verdächtigenden Kommentare als synthetische Zielvariablen genutzt und es findet eine neue Evaluierung der verwendeten Detektoren statt.
 
 \section{Datengrundlage}
-Grundlage dieser Arbeit sind Posts und Kommentare, die auf dem sozialen Medium Reddit veröffentlicht worden sind und mithilfe von einer API bezogen wurden. Es handelt sich dabei um Datensätze aus \dots verschiedenen Subreddits, die im Zeitraum von \dots bis \dots veröffentlicht wurden.
+Grundlage dieser Arbeit sind Posts und Kommentare, die auf dem sozialen Medium Reddit veröffentlicht worden sind und mithilfe von einer API bezogen wurden. Es handelt sich dabei um Datensätze, die im Zeitraum von Januar 2022 bis Dezember 2024 veröffentlicht wurden. Hinsichtlich der Subreddits wurden keine Einschränkungen gemacht. Der Datenbezug wurde von Mitarbeitenden der Hochschule München durchgeführt und mir wurde der gesamte Datensatz im CSV-Format von Prof. Dr. Anna Kruspe zur Verfügung gestellt. Zum Zeitpunkt des Beginns der Bearbeitung dieser Bachelorarbeit lagen die Daten bereits in einer bereinigten und zur Analyse verwendbaren Form vor. Aus diesem Grund wird im Rahmen dieser Bachelorarbeit auf weitere Datenvorverarbeitungsschritte meinerseits verzichtet.
 
 \section{Ethische und rechtliche Rahmenbedingungen der Datenerhebung}
 
 \section{Erstellung des KI-Datensatzes}
+Die Erstellung des KI-Datensatzes erfolgt im Zuge der Klassifikation, mithilfe des Modells Llama-3.1-8B-Instruct von Meta. Dazu wird zum einen ein System-Prompt genutzt, der die grundlegende Rolle und das Verhalten des Sprachmodells festlegt. Dieser lautet in diesem Fall „Write a Reddit post for r/\{Subreddit\}“, wobei Subreddit immer mit dem Quell-Subreddit des jeweiligen Original-Posts ersetzt wird. Damit soll das Sprachmodell auf mögliche Eigenheiten des Subreddits eingehen, wie z. B. spezielles Vokabular oder andere subreddit-spezifische Muster, um einen möglichst echt wirkenden Eindruck zu erwecken. Zusätzlich wird der eigentliche (User-)Prompt übergeben, der die konkrete Aufgabe für das Sprachmodell darstellt. Im vorliegenden Fall lautet dieser: „Title: \{'Title'\} Context: \{'Body Text'\}“, wobei auch hier Title und Body Text mit dem Titel und Text des jeweiligen Originalposts ersetzt wird. Außerdem werden nur die ersten 300 Zeichen des Originaltextes verwendet
 
 \section{Evaluierte Detektoren}
 Drei der vier von mir verwendeten Detektoren werden in Python über die transformers-Bibliothek, die von Hugging Face zur Verfügung gestellt wird, geladen. Durch die Nutzung der einheitlichen Schnittstelle wird ein konsistenter In- und Output erreicht. Lediglich Binoculars muss über einen eigens geschriebenen Quellcode geladen werden. Für alle Modelle wird der Textinput auf 512 Token trunkiert, da dies die maximale Inputlänge des RoBERTa Large OpenAI Detectors ist. Bei allen Modellen handelt es sich um binäre Klassifikatoren, deren Output sich leicht voneinander unterscheidet, wie in Tabelle~\ref{table:ki_labels} zu sehen ist.
 
 \begin{table}[htbp]
-    \centering
-    \caption{Übersicht der Ausgabelabels der untersuchten Klassifikationsmodelle}
-    \label{table:ki_labels}
-    \begin{tabularx}{1.0\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
-        \toprule
-        \textbf{Modell}               & \textbf{Label für KI}      & \textbf{Label für Mensch}     \\
-        \midrule
-        RoBERTa Large OpenAI Detector & „Fake“                     & „Real“                        \\
-        ChatGPT Detector RoBERTa      & „ChatGPT“                  & „Human“                       \\
-        RADAR                         & „LABEL\_0“                 & „LABEL\_1“                    \\
-        Binoculars                    & „Most likely AI-generated“ & „Most likely human-generated“ \\
-        \bottomrule
-    \end{tabularx}
+  \centering
+  \caption{Übersicht der Ausgabelabels der untersuchten Klassifikationsmodelle}
+  \label{table:ki_labels}
+  \begin{tabularx}{1.0\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+    \toprule
+    \textbf{Modell}               & \textbf{Label für KI}      & \textbf{Label für Mensch}     \\
+    \midrule
+    RoBERTa Large OpenAI Detector & „Fake“                     & „Real“                        \\
+    ChatGPT Detector RoBERTa      & „ChatGPT“                  & „Human“                       \\
+    RADAR                         & „LABEL\_0“                 & „LABEL\_1“                    \\
+    Binoculars                    & „Most likely AI-generated“ & „Most likely human-generated“ \\
+    \bottomrule
+  \end{tabularx}
 \end{table}
 
 Die Auswahl der Detektoren werde ich im Folgenden begründen. Die von mir gewählten Modelle decken die gängigen methodischen Paradigmen in der KI-Detektor-Forschung ab. Zum einen nutze ich die Klassifikatoren aus dem Bereich des Supervised Learning, RoBERTa Large OpenAI Detector und ChatGPT Detector RoBERTa, die den historischen Standard repräsentieren. Damit könnte gezeigt werden, wie stark Detektoren auf neuere generative Modell reagieren. Es ist davon auszugehen, dass größere, neuere Modelle diese Detektoren vor Herausforderungen stellen. Binoculars fällt in den Bereich der Zero-Shot-Verfahren und ist damit unabhängig von einem Training. So könnte gezeigt werden, wie gut diese Art von Detektor über verschiedene generierende Modelle hinweg generalisieren kann. RADAR nutzt das „Adversarial Learning“, was ein Novum in der KI-Detektor-Forschung darstellt. Interessant ist dabei vor allem, dass dieses Modell gezielt dafür trainiert worden ist, paraphrasierte Texte zu erkennen und es somit besonders robust sein sollte. Insgesamt ist davon auszugehen, dass die Supervised-Modelle zwar bei älteren Daten gute Ergebnisse erzielen, aber mit zunehmender Zeit Schwierigkeiten haben werden, KI-generierte Texte zu erkennen. Andererseits ist zu erwarten, dass RADAR und Binoculars auf neueren Daten, die potenziell mit neueren generativen Modellen erzeugt wurden, tendenziell bessere Ergebnisse erzielen.
 
 \section{Evaluationsmetriken}
 
+\section{Vorexperiment 1: Testen der ausgewählten Modelle auf einer Stichprobe}
+In diesem Vorexperiment soll zunächst herausgefunden werden, wie die Modelle auf einer kleinen Auswahl der zur Verfügung stehenden Daten abschneiden. Dabei sollen nicht nur die Ergebnisse der einzelnen Modelle betrachten werden, sondern auch ein Ensemble aus diesen gebildet werden, was dann basierend
+auf einem Mehrheitsentscheid eine finale Einschätzung abgibt. Dafür wird in einem ersten Schritt eine Zufallsstichprobe von 1.000 Posts aus den Daten für August 2022 gezogen. Danach wird das Modell Llama-3.1-8B-Instruct von Meta genutzt, um basierend auf dem Subreddit, dem Titel des Posts und den ersten 300 Zeichen des Haupttextes einen dazugehörigen KI-generierten Post zu erzeugen. Nun wird jeder der Texte, von Menschen verfasst und KI-generiert, als Input für die Detektoren genutzt. Das Ergebnis der Einzeldetektoren wird dann genutzt, um in einem Mehrheitsentscheid mit einer \(\frac{3}{4}\)-Mehrheit eine finale Entscheidung zu treffen, ob der jeweilige Text KI-generiert ist oder nicht. Zusätzlich wird eine Fehlermatrix aufgebaut, um die Stärken und Schwächen der Modelle in einer einfachen Form darzustellen.
 
 \section{Abbildungen}
 
 \begin{figure}[htbp!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figures/design-science-generic.png}
-    \caption[DSR-Ansatz mit Relevanz-, Rigorositäts- und Design-Zyklus.]{DSR-Ansatz mit Relevanz-, Rigorositäts- und Design-Zyklus. Adaptiert aus~\textcite{hevner2004design}.}
-    \label{fig:design-science-generic}
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/design-science-generic.png}
+  \caption[DSR-Ansatz mit Relevanz-, Rigorositäts- und Design-Zyklus.]{DSR-Ansatz mit Relevanz-, Rigorositäts- und Design-Zyklus. Adaptiert aus~\textcite{hevner2004design}.}
+  \label{fig:design-science-generic}
 \end{figure}
 
 Man kann Abbildungen einfügen und wie folgt darauf verweisen: Abbildung~\ref{fig:design-science-generic} zeigt den \gls{dsr}-Ansatz mit Relevanz-, Rigorositäts- und Design-Zyklus.
