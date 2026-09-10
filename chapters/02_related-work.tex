@@ -20,6 +20,16 @@ existieren. Dazu zählen „Sequence Labeling“-Ansätze, „Change Point Detec
 die „Multi-Scale“-Analyse von Grenzwerten.
 
 \section{Large Language Models und Textgenerierung}
+Den Grundstein für die Entwicklung der großen Sprachmodelle legten Vaswani et al. im Jahr 2017 mit ihrem Paper „Attention Is All You Need“ \autocite{vaswani2017attentionneed}. Dort stellen sie die Transformer-Architektur vor, eine neuartige Neuronale-Netzwerk-Architektur. Diese kommt ohne die, bei modernen Neuronalen Netzen üblichen, Operationen der Faltung und Rekursion aus und setzt ausschließlich auf sogenannte „attention mechanisms“. Das große Problem von „Recurrent Neural Networks“ (RNN) liegt darin, dass die Verarbeitung von Sequenzen aufgrund der Netzwerk-Architektur nicht parallelisierbar ist. So wird die Modellleistung irgendwann durch den verfügbaren Speicher beschränkt. Vor der Erfindung der Transformer-Architektur wurden die „attention mechanisms“ im Großteil der Anwendungsfälle in Verbindung mit RNNs genutzt. Die Transformer-Architektur basiert, ähnlich wie die meisten Modelle zur Sequenztransduktion, auf der Trennung in einen Encoder und einen Decoder. Eine genaue Darstellung der Transformer-Architektur lässt sich in Abbildung~\ref{fig:transformer_architecture} erkennen.
+
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/transformer_architecture.png}
+    \caption[Transformer-Architektur]{Übersicht zur Transformer-Architektur nach~\textcite{vaswani2017attentionneed}}
+    \label{fig:transformer_architecture}
+\end{figure}
+
+Der Encoder, welcher die linke Hälfte in Abbildung~\ref{fig:transformer_architecture} darstellt, erzeugt aus einer Input-Sequenz bestehend aus Symbolen eine numerische Repräsentation. Der Decoder, in Abbildung~\ref{fig:transformer_architecture} auf der rechten Seite, nutzt diesen numerischen Repräsentationsvektor, um die einzelnen Elemente einer symbolischen Output-Sequenz nach und nach zu generieren. Zu erwähnen ist dabei die Autoregressivität des Modells, was bedeutet, dass es bei der Generierung des nächsten Elements die bereits erzeugten Elemente als zusätzlichen Input nutzt. Zu den „attention mechanisms“, die die Transformer-Architektur nutzt gehört die „self-attention“. Dabei wird das Modell angewiesen, die Repräsentation jedes Worts in einem übergebenen Satz im Kontext der anderen Wörter zu sehen und diesen anderen Wörtern mehr oder weniger Aufmerksamkeit zu schenken. Mit dieser neu geschaffenen Architektur konnten auf dem „WMT 2014 English-to-German translation task“ bessere Ergebnisse als mit allen bis dato getesteten Modellen und dazu noch deutlich geringere Trainingskosten im Sinne von Rechenoperationen und Trainingszeit erreicht werden.
 
 \section{Charakteristika KI-generierter Texte}
 Hier könnte Kapitel 3 von \autocite{guo2023closechatgpthumanexperts} interessant sdin. Da geht es genau um die Eigenheiten von ChatGPT-Text und den Unterschied zu menschlichem Text.
