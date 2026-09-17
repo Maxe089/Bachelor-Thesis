@@ -1,5 +1,93 @@
 \chapter{Ergebnisse}
 \label{chap:results}
+Im Folgenden sollen die Ergebnisse der Vorexperimente, sowie des Hauptexperiments vorgestellt werden.
+
+\section{Ergebnisse des Vorexperiments 1}
+Wie in Kapitel~\ref{subsec:Vorexperiment 1} beschrieben wurde, sollten die ausgewählten Detektoren anhand einer Stichprobe von 1.000 Posts aus dem Juni 2022 evaluiert werden.
+In den Tabellen~\ref{tab:cm-roberta-base-openai-detector} bis~\ref{tab:cm-binoculars} sind die Ergebnisse des ersten Vorexperiments anhand von Confusion Matrices zu erkennen. Hier zeigt sich, dass hinsichtlich fast aller Metriken das Binoculars-Framework am besten abschneidet (Accuracy: 0,951; Precision: 0,982; F1: 0,949). Lediglich im Hinblick auf den Recall erzielt RADAR ein besseres Ergebnis. Interessant ist, dass der RoBERTa OpenAI Detector (Base) trotz seines veralteten Trainingskorpus innerhalb der beobachteten Metriken immer besser abschneidet als der jeweils schlechteste Detektor. Betrachtet man die Confusion Matrices von RADAR (Tabelle~\ref{tab:cm-radar}) und dem ChatGPT Detector RoBERTa (Tabelle~\ref{tab:cm-chatgpt-detector-roberta}), fällt auf, dass sich diese bei der Erkennung genau entgegengesetzt verhalten. Letzterer weist eine sehr niedrige Zahl an False Positives auf, erkennt aber eine hohe Anzahl von KI-Texten nicht (807 False Negatives). Im Gegensatz dazu erkennt RADAR Texte, die KI-generiert sind häufig als solche, was sich in einem hohen Recall-Wert von 95 \% darstellt, wobei gleichzeitig auch ein großer Teil der menschlichen Texte fälschlicherweise als Output eines LLMs erkannt werden. Hinsichtlich False Negatives weisen RADAR und Binoculars das beste Ergebnis auf. \\
+Zusätzlich zu den einzelnen Detektoren wurde ein Ensemble aus diesen gebildet, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, ob es sich um KI-generierten Text handelt (Confusion Matrix dazu siehe Tabelle~\ref{tab:cm-majority}). In Bezug auf die Metriken Accuracy, Precision und F1-Score (0,776; 0,988; 0,714) ist die Mehrheitsentscheidung performanter als alle Einzeldetektoren außer Binoculars. Dieser Leistungsunterschied lässt sich erklären, wenn man ihn in Relation zur Anzahl der False Negatives des ChatGPT Detector RoBERTa sieht. Dieser erkennt einen Großteil der KI-Texte nicht korrekt, wodurch häufig die dritte Stimme für einen positiven Mehrheitsentscheid fehlt und den Recall des Ensembles auf ein relativ niedriges Niveau von 0,559 senkt. Damit eignet sich, gemessen an dieser Stichprobe, ein Ensemble, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, eher weniger um KI-generierten Text zu erkennen. Ein einzelner schwacher Detektor, hier der ChatGPT Detector RoBERTa, kann das Endergebnis stark negativ beeinflussen.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Confusion Matrix - roberta-base-openai-detector}
+    \label{tab:cm-roberta-base-openai-detector}
+    \begin{tabular}{ll cc}
+        \toprule
+                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                     &        & Mensch                           & KI  \\
+        \midrule
+        \multirow{2}{*}{Tatsächlich} & Mensch & 919                              & 81  \\
+                                     & KI     & 462                              & 538 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Confusion Matrix - chatgpt-detector-roberta}
+    \label{tab:cm-chatgpt-detector-roberta}
+    \begin{tabular}{ll cc}
+        \toprule
+                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                     &        & Mensch                           & KI  \\
+        \midrule
+        \multirow{2}{*}{Tatsächlich} & Mensch & 985                              & 15  \\
+                                     & KI     & 807                              & 193 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Confusion Matrix - RADAR}
+    \label{tab:cm-radar}
+    \begin{tabular}{ll cc}
+        \toprule
+                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                     &        & Mensch                           & KI  \\
+        \midrule
+        \multirow{2}{*}{Tatsächlich} & Mensch & 378                              & 622 \\
+                                     & KI     & 50                               & 950 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+\begin{table}[htbp]
+    \centering
+    \caption{Confusion Matrix - Binoculars}
+    \label{tab:cm-binoculars}
+    \begin{tabular}{ll cc}
+        \toprule
+                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                     &        & Mensch                           & KI  \\
+        \midrule
+        \multirow{2}{*}{Tatsächlich} & Mensch & 983                              & 17  \\
+                                     & KI     & 82                               & 918 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Confusion Matrix - Mehrheitsvotum ($\geq$3 von 4 Detektoren)}
+    \label{tab:cm-majority}
+    \begin{tabular}{ll cc}
+        \toprule
+                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                     &        & Mensch                           & KI  \\
+        \midrule
+        \multirow{2}{*}{Tatsächlich} & Mensch & 993                              & 7   \\
+                                     & KI     & 441                              & 559 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Ergebnisse des Vorexperiments 2}
+In Vorexperiment 2 sollte der Frage nachgegangen werden, in welchem Umfang und mit welcher zeitlichen Entwicklung Nutzer in den Kommentaren den Verdacht äußern, dass ein Post KI-generiert wurde.
+Dies wurde anhand von drei ausgewählten Monaten untersucht. Betrachtet man die Ergebnisse, so fällt auf, dass der Anteil von KI-Verdächtigungen an der Gesamtzahl der Kommentare insgesamt sehr niedrig ist. Es lässt sich zwar ein leichter Anstieg erkennen, aber auch im Juli 2024 beläuft sich der Anteil von KI-Verdächtigungen an den in diesem Monat insgesamt untersuchten Kommentaren auf knapp 1 \%.\\
+Es stellt sich auch die Frage, ob es generell möglich ist, KI-Verdächtigungen zu quantifizieren und wenn ja, wie dies erfolgen kann.
 
 \section{Diagramme}
 

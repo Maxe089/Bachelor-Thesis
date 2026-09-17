@@ -38,6 +38,7 @@ Die Auswahl der Detektoren werde ich im Folgenden begründen. Die von mir gewäh
 \section{Evaluationsmetriken}
 
 \section{Vorexperiment 1: Testen der ausgewählten Modelle auf einer Stichprobe}
+\label{subsec:Vorexperiment 1}
 In diesem Vorexperiment soll zunächst herausgefunden werden, wie die Modelle auf einer kleinen Auswahl der zur Verfügung stehenden Daten abschneiden. Dabei sollen nicht nur die Ergebnisse der einzelnen Modelle betrachten werden, sondern auch ein Ensemble aus diesen gebildet werden, was dann basierend
 auf einem Mehrheitsentscheid eine finale Einschätzung abgibt. Dafür wird in einem ersten Schritt eine Zufallsstichprobe von 1.000 Posts aus den Daten für August 2022 gezogen. Danach wird das Modell Llama-3.1-8B-Instruct von Meta genutzt, um basierend auf dem Subreddit, dem Titel des Posts und den ersten 300 Zeichen des Haupttextes einen dazugehörigen KI-generierten Post zu erzeugen. Nun wird jeder der Texte, von Menschen verfasst und KI-generiert, als Input für die Detektoren genutzt. Das Ergebnis der Einzeldetektoren wird dann genutzt, um in einem Mehrheitsentscheid mit einer \(\frac{3}{4}\)-Mehrheit eine finale Entscheidung zu treffen, ob der jeweilige Text KI-generiert ist oder nicht. Zusätzlich wird eine Fehlermatrix aufgebaut, um die Stärken und Schwächen der Modelle in einer einfachen Form darzustellen.
 
