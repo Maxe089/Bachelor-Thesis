@@ -3,85 +3,86 @@
 Im Folgenden sollen die Ergebnisse der Vorexperimente, sowie des Hauptexperiments vorgestellt werden.
 
 \section{Ergebnisse des Vorexperiments 1}
+\label{sec:ergebnisse_vorexperiment1}
 Wie in Kapitel~\ref{subsec:Vorexperiment 1} beschrieben wurde, sollten die ausgewählten Detektoren anhand einer Stichprobe von 1.000 Posts aus dem Juni 2022 evaluiert werden.
-In den Tabellen~\ref{tab:cm-roberta-base-openai-detector} bis~\ref{tab:cm-binoculars} sind die Ergebnisse des ersten Vorexperiments anhand von Confusion Matrices zu erkennen. Hier zeigt sich, dass hinsichtlich fast aller Metriken das Binoculars-Framework am besten abschneidet (Accuracy: 0,951; Precision: 0,982; F1: 0,949). Lediglich im Hinblick auf den Recall erzielt RADAR ein besseres Ergebnis. Interessant ist, dass der RoBERTa OpenAI Detector (Base) trotz seines veralteten Trainingskorpus innerhalb der beobachteten Metriken immer besser abschneidet als der jeweils schlechteste Detektor. Betrachtet man die Confusion Matrices von RADAR (Tabelle~\ref{tab:cm-radar}) und dem ChatGPT Detector RoBERTa (Tabelle~\ref{tab:cm-chatgpt-detector-roberta}), fällt auf, dass sich diese bei der Erkennung genau entgegengesetzt verhalten. Letzterer weist eine sehr niedrige Zahl an False Positives auf, erkennt aber eine hohe Anzahl von KI-Texten nicht (807 False Negatives). Im Gegensatz dazu erkennt RADAR Texte, die KI-generiert sind häufig als solche, was sich in einem hohen Recall-Wert von 95 \% darstellt, wobei gleichzeitig auch ein großer Teil der menschlichen Texte fälschlicherweise als Output eines LLMs erkannt werden. Hinsichtlich False Negatives weisen RADAR und Binoculars das beste Ergebnis auf. \\
-Zusätzlich zu den einzelnen Detektoren wurde ein Ensemble aus diesen gebildet, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, ob es sich um KI-generierten Text handelt (Confusion Matrix dazu siehe Tabelle~\ref{tab:cm-majority}). In Bezug auf die Metriken Accuracy, Precision und F1-Score (0,776; 0,988; 0,714) ist die Mehrheitsentscheidung performanter als alle Einzeldetektoren außer Binoculars. Dieser Leistungsunterschied lässt sich erklären, wenn man ihn in Relation zur Anzahl der False Negatives des ChatGPT Detector RoBERTa sieht. Dieser erkennt einen Großteil der KI-Texte nicht korrekt, wodurch häufig die dritte Stimme für einen positiven Mehrheitsentscheid fehlt und den Recall des Ensembles auf ein relativ niedriges Niveau von 0,559 senkt. Damit eignet sich, gemessen an dieser Stichprobe, ein Ensemble, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, eher weniger um KI-generierten Text zu erkennen. Ein einzelner schwacher Detektor, hier der ChatGPT Detector RoBERTa, kann das Endergebnis stark negativ beeinflussen.
+In den Tabellen~\ref{tab:cm-roberta-base-openai-detector} bis~\ref{tab:cm-binoculars} sind die Ergebnisse des ersten Vorexperiments anhand von Confusion Matrices zu erkennen. Hier zeigt sich, dass hinsichtlich aller Metriken das Binoculars-Framework am besten abschneidet (Accuracy: 0,9805; Precision: 0,9928; Recall: 0,9679 F1: 0,9802). Interessant ist, dass der RoBERTa OpenAI Detector (Base) trotz seines veralteten Trainingskorpus innerhalb der beobachteten Metriken immer besser abschneidet als der jeweils schlechteste Detektor. Betrachtet man die Confusion Matrices von RADAR (Tabelle~\ref{tab:cm-radar}) und dem ChatGPT Detector RoBERTa (Tabelle~\ref{tab:cm-chatgpt-detector-roberta}), fällt auf, dass sich diese bei der Erkennung entgegengesetzt verhalten. Letzterer weist eine sehr niedrige Zahl an False Positives auf, erkennt aber eine hohe Anzahl von KI-Texten nicht (815 False Negatives). Im Gegensatz dazu erkennt RADAR Texte, die KI-generiert sind häufig als solche, was sich in einem hohen Recall-Wert von knapp 95 \% darstellt, wobei gleichzeitig auch ein großer Teil der menschlichen Texte fälschlicherweise als Output eines LLMs erkannt werden. Hinsichtlich False Negatives weisen RADAR und Binoculars das beste Ergebnis auf. \\
+Zusätzlich zu den einzelnen Detektoren wurde ein Ensemble aus diesen gebildet, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, ob es sich um KI-generierten Text handelt (Confusion Matrix dazu siehe Tabelle~\ref{tab:cm-majority}). In Bezug auf die Metriken Accuracy, Precision und F1 (0,7816; 0,9812; 0,7244) ist die Mehrheitsentscheidung performanter als alle Einzeldetektoren außer Binoculars. Dieser Leistungsunterschied lässt sich erklären, wenn man ihn in Relation zur Anzahl der False Negatives des ChatGPT Detector RoBERTa sieht. Dieser erkennt einen Großteil der KI-Texte nicht korrekt, wodurch häufig die dritte Stimme für einen positiven Mehrheitsentscheid fehlt und den Recall des Ensembles auf ein relativ niedriges Niveau von 0,5671 senkt. Damit eignet sich, gemessen an dieser Stichprobe, ein Ensemble, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, eher weniger um KI-generierten Text zu erkennen. Ein einzelner schwacher Detektor, hier der ChatGPT Detector RoBERTa, kann das Endergebnis stark negativ beeinflussen.
 
 \begin{table}[htbp]
-    \centering
-    \caption{Confusion Matrix - roberta-base-openai-detector}
-    \label{tab:cm-roberta-base-openai-detector}
-    \begin{tabular}{ll cc}
-        \toprule
-                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                     &        & Mensch                           & KI  \\
-        \midrule
-        \multirow{2}{*}{Tatsächlich} & Mensch & 919                              & 81  \\
-                                     & KI     & 462                              & 538 \\
-        \bottomrule
-    \end{tabular}
+  \centering
+  \caption{Confusion Matrix - roberta-base-openai-detector}
+  \label{tab:cm-roberta-base-openai-detector}
+  \begin{tabular}{ll cc}
+    \toprule
+                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                 &        & Mensch                           & KI  \\
+    \midrule
+    \multirow{2}{*}{Tatsächlich} & Mensch & 916                              & 82  \\
+                                 & KI     & 460                              & 538 \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
-    \centering
-    \caption{Confusion Matrix - chatgpt-detector-roberta}
-    \label{tab:cm-chatgpt-detector-roberta}
-    \begin{tabular}{ll cc}
-        \toprule
-                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                     &        & Mensch                           & KI  \\
-        \midrule
-        \multirow{2}{*}{Tatsächlich} & Mensch & 985                              & 15  \\
-                                     & KI     & 807                              & 193 \\
-        \bottomrule
-    \end{tabular}
+  \centering
+  \caption{Confusion Matrix - chatgpt-detector-roberta}
+  \label{tab:cm-chatgpt-detector-roberta}
+  \begin{tabular}{ll cc}
+    \toprule
+                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                 &        & Mensch                           & KI  \\
+    \midrule
+    \multirow{2}{*}{Tatsächlich} & Mensch & 981                              & 17  \\
+                                 & KI     & 815                              & 183 \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
-    \centering
-    \caption{Confusion Matrix - RADAR}
-    \label{tab:cm-radar}
-    \begin{tabular}{ll cc}
-        \toprule
-                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                     &        & Mensch                           & KI  \\
-        \midrule
-        \multirow{2}{*}{Tatsächlich} & Mensch & 378                              & 622 \\
-                                     & KI     & 50                               & 950 \\
-        \bottomrule
-    \end{tabular}
+  \centering
+  \caption{Confusion Matrix - RADAR}
+  \label{tab:cm-radar}
+  \begin{tabular}{ll cc}
+    \toprule
+                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                 &        & Mensch                           & KI  \\
+    \midrule
+    \multirow{2}{*}{Tatsächlich} & Mensch & 324                              & 674 \\
+                                 & KI     & 55                               & 943 \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 
 
 \begin{table}[htbp]
-    \centering
-    \caption{Confusion Matrix - Binoculars}
-    \label{tab:cm-binoculars}
-    \begin{tabular}{ll cc}
-        \toprule
-                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                     &        & Mensch                           & KI  \\
-        \midrule
-        \multirow{2}{*}{Tatsächlich} & Mensch & 983                              & 17  \\
-                                     & KI     & 82                               & 918 \\
-        \bottomrule
-    \end{tabular}
+  \centering
+  \caption{Confusion Matrix - Binoculars}
+  \label{tab:cm-binoculars}
+  \begin{tabular}{ll cc}
+    \toprule
+                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                 &        & Mensch                           & KI  \\
+    \midrule
+    \multirow{2}{*}{Tatsächlich} & Mensch & 991                              & 7   \\
+                                 & KI     & 32                               & 966 \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
-    \centering
-    \caption{Confusion Matrix - Mehrheitsvotum ($\geq$3 von 4 Detektoren)}
-    \label{tab:cm-majority}
-    \begin{tabular}{ll cc}
-        \toprule
-                                     &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                     &        & Mensch                           & KI  \\
-        \midrule
-        \multirow{2}{*}{Tatsächlich} & Mensch & 993                              & 7   \\
-                                     & KI     & 441                              & 559 \\
-        \bottomrule
-    \end{tabular}
+  \centering
+  \caption{Confusion Matrix - Mehrheitsvotum ($\geq$3 von 4 Detektoren)}
+  \label{tab:cm-majority}
+  \begin{tabular}{ll cc}
+    \toprule
+                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                 &        & Mensch                           & KI  \\
+    \midrule
+    \multirow{2}{*}{Tatsächlich} & Mensch & 987                              & 11  \\
+                                 & KI     & 425                              & 573 \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 \section{Ergebnisse des Vorexperiments 2}
@@ -89,13 +90,80 @@ In Vorexperiment 2 sollte der Frage nachgegangen werden, in welchem Umfang und m
 Dies wurde anhand von drei ausgewählten Monaten untersucht. Betrachtet man die Ergebnisse, so fällt auf, dass der Anteil von KI-Verdächtigungen an der Gesamtzahl der Kommentare insgesamt sehr niedrig ist. Es lässt sich zwar ein leichter Anstieg erkennen, aber auch im Juli 2024 beläuft sich der Anteil von KI-Verdächtigungen an den in diesem Monat insgesamt untersuchten Kommentaren auf knapp 1 \%.\\
 Es stellt sich auch die Frage, ob es generell möglich ist, KI-Verdächtigungen zu quantifizieren und wenn ja, wie dies erfolgen kann.
 
-\section{Diagramme}
 
-Dies ist ein Diagramm, das mit Python (Jupyter Notebook) erstellt wurde, um den Stil des Dokuments beizubehalten.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figures/execution-time.png}
-    \caption{Ausführungszeit nach Größe der Trace-Datei des Frameworks.}
-    \label{fig:execution-time}
+\section{Ergebnisse des Hauptexperiments}
+In Kapitel~\ref{sec:ergebnisse_vorexperiment1} wurde gezeigt, dass der Binoculars-Detektor auf der untersuchten Stichprobe eine sehr gute Erkennungsleistung vorweisen kann. Aus diesem Grund wurde im Hauptexperiment dieser Arbeit weiter untersucht, wie gut die Leistung der einzelnen Detektoren, vor allem Binoculars, und dem Ensemble auf größeren Stichproben aus verschiedenen Monaten und Jahren ist (siehe Kapitel~\ref{subsec:Hauptexperiment}). Zunächst muss allerdings noch erwähnt werden, dass trotz der verwendeten Retry-Logik dennoch fehlerhafte Generierungen durch LLaMA-3.1-8B-Instruct erfolgten. In diesen Fällen wurden die betroffenen Zeilen vollständig aus der Bewertung und dem jeweiligen Datensatz (also sowohl der echte als auch der generierte Text) ausgeschlossen, bevor mit der Analyse begonnen werden konnte. \\
+Betrachtet man zunächst nur die Ergebnisse für den menschlichen Text, fällt auf, dass im „Prä-ChatGPT“-Zeitraum (hier Juni 2022) alle evaluierten Detektoren bereits menschlichen Text als KI-Text erkennen. Am gravierendsten fällt dies bei RADAR aus, wo 1.992 der 2.965 menschlichen Texte als KI-generiert erkannt wurden, was einer False Positive Rate von 67 \% entspricht. Der ChatGPT Detector RoBERTa und auch Binoculars haben zwar deutlich geringere False Positive Rates (ca. 1,8 \% bzw. ca. 1 \%), aber auch diese Detektoren erkennen KI-Text in menschlichem Text. \\
+Über die sechs betrachteten Zeitpunkte hinweg sind die Detektoren in ihrer Leistung hinsichtlich der gewählten Metriken annähernd konstant, wobei minimale Schwankungen von wenigen Prozentpunkten beobachtet werden können. Die Rangfolge der Detektoren in Bezug auf ihre Leistung ändert sich im Zeitverlauf nicht. Im Hinblick auf die False Positive Rate zeigt sich, dass RADAR über alle Zeitpunkte hinweg den höchsten Wert aufweist.
+\begin{figure}[htb]
+  \centering % <-- added
+  \begin{minipage}[t]{.5\textwidth}
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/zeitverlauf/hauptexperiment_zeitverlauf_sample3000_accuracy.png}
+      \caption{Accuracy im Zeitverlauf}
+      \label{fig:1}
+    \end{subfigure}\hfil % <-- added
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/zeitverlauf/hauptexperiment_zeitverlauf_sample3000_precision.png}
+      \caption{Precision im Zeitverlauf}
+      \label{fig:2}
+    \end{subfigure}\hfil % <-- added
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/zeitverlauf/hauptexperiment_zeitverlauf_sample3000_recall.png}
+      \caption{Recall im Zeitverlauf}
+      \label{fig:3}
+    \end{subfigure}
+  \end{minipage}\hfil
+  \begin{minipage}[t]{.5\textwidth}
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/zeitverlauf/hauptexperiment_zeitverlauf_sample3000_f1.png}
+      \caption{F1-Score im Zeitverlauf}
+      \label{fig:4}
+    \end{subfigure}\hfil % <-- added
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/zeitverlauf/hauptexperiment_zeitverlauf_sample3000_fnr.png}
+      \caption{FNR im Zeitverlauf}
+      \label{fig:5}
+    \end{subfigure}\hfil % <-- added
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/zeitverlauf/hauptexperiment_zeitverlauf_sample3000_fpr.png}
+      \caption{FPR im Zeitverlauf}
+      \label{fig:6}
+    \end{subfigure}
+  \end{minipage}
+  \caption{Verwendete Metriken im Zeitverlauf für alle Detektoren}
+  \label{fig:images}
 \end{figure}
+Alle Detektoren und auch das Ensemble mit Mehrheitsentscheid zeigen einen Anstieg der False Positive Rate beim Vergleich zwischen Juni 2022 und Dezember 2022 von bis zu 3,8 Prozentpunkten. Insgesamt lässt sich eine Tendenz von mehr False Positives zwischen dem frühesten und dem spätesten untersuchten Zeitpunkt beobachten. \textcolor{red}{(Interpration (muss später zu Diskussion): Dies könnte ein Hinweis darauf sein, dass tatsächlich mehr KI-generierte Posts unter den echten Posts sind.)} \\
+Die Trefferquote, also der Recall, verhält sich für alle Detektoren und auch das Ensemble über die Zeit hinweg relativ stabil. Lediglich beim ChatGPT Detector RoBERTa, dem RoBERTa OpenAI Detector und dem Ensemble zeigt sich, dass im Januar 2024 im Vergleich zum Juni 2022 etwas weniger KI-Texte auch als solche erkannt werden (ChatGPT Detector RoBERTa: 19 \% im Juni 2022 vs. 16 \% im Januar 2024; RoBERTa OpenAI Detector: 53 \% im Juni 2022 vs. 49 \% im Januar 2024; Ensemble: 57 \% im Juni 2022 vs. 52 \% im Januar 2024). Im darauffolgenden Zeitpunkt, dem Juli 2024, steigen die Werte aber für beide Detektoren und das Ensemble wieder auf ein ähnliches Niveau im Vergleich zum Juni 2022. \\
+Vergleicht man die Länge der realen Texte und der generierten Texte fällt auf, dass zu allen Zeitpunkten die generierten Texte im Mittel deutlich länger sind (siehe Abbildung~\ref{fig:textlength_zeitverlauf}).
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{figures/plots/hauptexperiment/zeitverlauf/hauptexperiment_zeitverlauf_sample3000_textlength.png}
+  \caption[Textlänge im Zeitverlauf]{Vergleich der Textlänge im Zeitverlauf in der Stichprobe}
+  \label{fig:textlength_zeitverlauf}
+\end{figure}
+
+Über die Zeiträume hinweg zeigt sich, dass die KI-generierten Texte im Mittel doppelt so lang sind als die realen Posts (siehe Tabelle~\ref{table:vergleich_textlänge}). Wie oben beschrieben wurde (siehe Kapitel~\ref{subsec:Hauptexperiment}), soll neben dem Zeitverlauf auch der Einfluss der Textlänge auf die Detektionsleistung untersucht werden. Die Ergebnisse aus der Forschung legen nahe, dass ein positiver Zusammenhang zwischen Textlänge und Detektionsleistung besteht \autocite{chakraborty2023possibilitiesaigeneratedtextdetection,Rashidi_Fennell_Albahra_Hu_Gorbett_2023}. Um diesen Befund auf den mir vorliegenden Daten zu überprüfen, soll eine neue Stichprobe von 3.000 realen Posts aus verschiedenen Klassen von Textlängen gezogen werden.
+
+\textcolor{red}{We further remark that it would be quite difficult to make LLMs exactly equal to human distributions due to the vast diversity within the human population, which may require a large number of samples from an information-theoretic perspective and provide a lower bound on the closeness distance to human distributions. \autocite{chakraborty2023possibilitiesaigeneratedtextdetection}}
+
+
+\begin{table}[htbp]
+  \centering
+  \caption{Vergleich der Textlänge zwischen den beiden Klassen}
+  \label{table:vergleich_textlänge}
+  \begin{tabularx}{1.0\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+    \toprule
+    \textbf{}          & \textbf{real text} & \textbf{ai text} \\
+    \midrule
+    Mittelwert         & 660,72             & 1332,38          \\
+    Standardabweichung & 555,82             & 396,36           \\
+    Minimum            & 112                & 90               \\
+    Median             & 462                & 1295             \\
+    Maximum            & 3133               & 2848             \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
