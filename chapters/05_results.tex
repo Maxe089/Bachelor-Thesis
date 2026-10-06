@@ -5,84 +5,99 @@ Im Folgenden sollen die Ergebnisse der Vorexperimente, sowie des Hauptexperiment
 \section{Ergebnisse des Vorexperiments 1}
 \label{sec:ergebnisse_vorexperiment1}
 Wie in Kapitel~\ref{subsec:Vorexperiment 1} beschrieben wurde, sollten die ausgewählten Detektoren anhand einer Stichprobe von 1.000 Posts aus dem Juni 2022 evaluiert werden.
-In den Tabellen~\ref{tab:cm-roberta-base-openai-detector} bis~\ref{tab:cm-binoculars} sind die Ergebnisse des ersten Vorexperiments anhand von Confusion Matrices zu erkennen. Hier zeigt sich, dass hinsichtlich aller Metriken das Binoculars-Framework am besten abschneidet (Accuracy: 0,9805; Precision: 0,9928; Recall: 0,9679 F1: 0,9802). Interessant ist, dass der RoBERTa OpenAI Detector (Base) trotz seines veralteten Trainingskorpus innerhalb der beobachteten Metriken immer besser abschneidet als der jeweils schlechteste Detektor. Betrachtet man die Confusion Matrices von RADAR (Tabelle~\ref{tab:cm-radar}) und dem ChatGPT Detector RoBERTa (Tabelle~\ref{tab:cm-chatgpt-detector-roberta}), fällt auf, dass sich diese bei der Erkennung entgegengesetzt verhalten. Letzterer weist eine sehr niedrige Zahl an False Positives auf, erkennt aber eine hohe Anzahl von KI-Texten nicht (815 False Negatives). Im Gegensatz dazu erkennt RADAR Texte, die KI-generiert sind häufig als solche, was sich in einem hohen Recall-Wert von knapp 95 \% darstellt, wobei gleichzeitig auch ein großer Teil der menschlichen Texte fälschlicherweise als Output eines LLMs erkannt werden. Hinsichtlich False Negatives weisen RADAR und Binoculars das beste Ergebnis auf. \\
-Zusätzlich zu den einzelnen Detektoren wurde ein Ensemble aus diesen gebildet, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, ob es sich um KI-generierten Text handelt (Confusion Matrix dazu siehe Tabelle~\ref{tab:cm-majority}). In Bezug auf die Metriken Accuracy, Precision und F1 (0,7816; 0,9812; 0,7244) ist die Mehrheitsentscheidung performanter als alle Einzeldetektoren außer Binoculars. Dieser Leistungsunterschied lässt sich erklären, wenn man ihn in Relation zur Anzahl der False Negatives des ChatGPT Detector RoBERTa sieht. Dieser erkennt einen Großteil der KI-Texte nicht korrekt, wodurch häufig die dritte Stimme für einen positiven Mehrheitsentscheid fehlt und den Recall des Ensembles auf ein relativ niedriges Niveau von 0,5671 senkt. Damit eignet sich, gemessen an dieser Stichprobe, ein Ensemble, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, eher weniger um KI-generierten Text zu erkennen. Ein einzelner schwacher Detektor, hier der ChatGPT Detector RoBERTa, kann das Endergebnis stark negativ beeinflussen.
-
-\begin{table}[htbp]
-  \centering
-  \caption{Confusion Matrix - roberta-base-openai-detector}
-  \label{tab:cm-roberta-base-openai-detector}
-  \begin{tabular}{ll cc}
-    \toprule
-                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                 &        & Mensch                           & KI  \\
-    \midrule
-    \multirow{2}{*}{Tatsächlich} & Mensch & 916                              & 82  \\
-                                 & KI     & 460                              & 538 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[htbp]
-  \centering
-  \caption{Confusion Matrix - chatgpt-detector-roberta}
-  \label{tab:cm-chatgpt-detector-roberta}
-  \begin{tabular}{ll cc}
-    \toprule
-                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                 &        & Mensch                           & KI  \\
-    \midrule
-    \multirow{2}{*}{Tatsächlich} & Mensch & 981                              & 17  \\
-                                 & KI     & 815                              & 183 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[htbp]
-  \centering
-  \caption{Confusion Matrix - RADAR}
-  \label{tab:cm-radar}
-  \begin{tabular}{ll cc}
-    \toprule
-                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                 &        & Mensch                           & KI  \\
-    \midrule
-    \multirow{2}{*}{Tatsächlich} & Mensch & 324                              & 674 \\
-                                 & KI     & 55                               & 943 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
+In den Tabellen~\ref{tab:cm-roberta-base-openai-detector} bis~\ref{tab:cm-majority} sind die Ergebnisse des ersten Vorexperiments anhand von Confusion Matrices zu erkennen. Hier zeigt sich, dass hinsichtlich aller Metriken das Binoculars-Framework am besten abschneidet (Accuracy: 98,05 \%; Precision: 99,28 \%; Recall: 96,79 \%; F1: 98,02 \%). Interessant ist, dass der RoBERTa OpenAI Detector (Base) trotz seines veralteten Trainingskorpus innerhalb der beobachteten Metriken immer besser abschneidet als der jeweils schlechteste Detektor. Betrachtet man die Confusion Matrices von RADAR (Tabelle~\ref{tab:cm-radar}) und dem ChatGPT Detector RoBERTa (Tabelle~\ref{tab:cm-chatgpt-detector-roberta}), fällt auf, dass sich diese bei der Erkennung entgegengesetzt verhalten. Letzterer weist eine sehr niedrige Zahl an False Positives auf, erkennt aber eine hohe Anzahl von KI-Texten nicht (815 False Negatives). Im Gegensatz dazu erkennt RADAR Texte, die KI-generiert sind häufig als solche, was sich in einem hohen Recall-Wert von knapp 95 \% darstellt, wobei gleichzeitig auch ein großer Teil der menschlichen Texte fälschlicherweise als Output eines LLMs erkannt werden. Hinsichtlich False Negatives weisen RADAR und Binoculars das beste Ergebnis auf. \\
+Zusätzlich zu den einzelnen Detektoren wurde ein Ensemble aus diesen gebildet, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, ob es sich um KI-generierten Text handelt (Confusion Matrix dazu siehe Tabelle~\ref{tab:cm-majority}). In Bezug auf die Metriken Accuracy, Precision und F1 (78,16 \%; 98,12 \%; 72,44 \%) ist die Mehrheitsentscheidung performanter als alle Einzeldetektoren außer Binoculars. \textcolor{red}{(Schon in die Diskussion verschoben: Dieser Leistungsunterschied lässt sich erklären, wenn man ihn in Relation zur Anzahl der False Negatives des ChatGPT Detector RoBERTa sieht. Dieser erkennt einen Großteil der KI-Texte nicht korrekt, wodurch häufig die dritte Stimme für einen positiven Mehrheitsentscheid fehlt und den Recall des Ensembles auf ein relativ niedriges Niveau von 56,71 \% senkt. Damit eignet sich, gemessen an dieser Stichprobe, ein Ensemble, das anhand einer \(\frac{3}{4}\)-Mehrheit entscheidet, eher weniger um KI-generierten Text zu erkennen. Ein einzelner schwacher Detektor, hier der ChatGPT Detector RoBERTa, kann das Endergebnis stark negativ beeinflussen.)}
 
 
 \begin{table}[htbp]
   \centering
-  \caption{Confusion Matrix - Binoculars}
-  \label{tab:cm-binoculars}
-  \begin{tabular}{ll cc}
-    \toprule
-                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                 &        & Mensch                           & KI  \\
-    \midrule
-    \multirow{2}{*}{Tatsächlich} & Mensch & 991                              & 7   \\
-                                 & KI     & 32                               & 966 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+  \caption{Confusion Matrices für die untersuchten Detektoren}
+  \label{tab:haupttabelle_vorexperiment1}
+  \begin{subtable}[t]{0.48\textwidth}
+    \centering
+    \begin{tabular}{ll cc}
+      \toprule
+                                   &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                   &        & Mensch                           & KI  \\
+      \midrule
+      \multirow{2}{*}{Tatsächlich} & Mensch & 916                              & 82  \\
+                                   & KI     & 460                              & 538 \\
+      \bottomrule
+    \end{tabular}
+    \subcaption{RoBERTa Base OpenAI Detector}
+    \label{tab:cm-roberta-base-openai-detector}
+  \end{subtable}
+  \hfill
+  \begin{subtable}[t]{0.48\textwidth}
+    \centering
+    \begin{tabular}{ll cc}
+      \toprule
+                                   &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                   &        & Mensch                           & KI  \\
+      \midrule
+      \multirow{2}{*}{Tatsächlich} & Mensch & 981                              & 17  \\
+                                   & KI     & 815                              & 183 \\
+      \bottomrule
+    \end{tabular}
+    \subcaption{ChatGPT Detector RoBERTa}
+    \label{tab:cm-chatgpt-detector-roberta}
+  \end{subtable}
 
-\begin{table}[htbp]
-  \centering
-  \caption{Confusion Matrix - Mehrheitsvotum ($\geq$3 von 4 Detektoren)}
-  \label{tab:cm-majority}
-  \begin{tabular}{ll cc}
-    \toprule
-                                 &        & \multicolumn{2}{c}{Vorhergesagt}       \\
-                                 &        & Mensch                           & KI  \\
-    \midrule
-    \multirow{2}{*}{Tatsächlich} & Mensch & 987                              & 11  \\
-                                 & KI     & 425                              & 573 \\
-    \bottomrule
-  \end{tabular}
+  \vspace{0.5cm} % Erzeugt vertikalen Abstand zur nächsten Zeile
+
+  % --- ZEILE 2 ---
+  % Tabelle 3 (Links)
+  \begin{subtable}[t]{0.48\textwidth}
+    \centering
+    \begin{tabular}{ll cc}
+      \toprule
+                                   &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                   &        & Mensch                           & KI  \\
+      \midrule
+      \multirow{2}{*}{Tatsächlich} & Mensch & 324                              & 674 \\
+                                   & KI     & 55                               & 943 \\
+      \bottomrule
+    \end{tabular}
+    \subcaption{RADAR}
+    \label{tab:cm-radar}
+  \end{subtable}
+  \hfill
+  % Tabelle 4 (Rechts)
+  \begin{subtable}[t]{0.48\textwidth}
+    \centering
+    \begin{tabular}{ll cc}
+      \toprule
+                                   &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                   &        & Mensch                           & KI  \\
+      \midrule
+      \multirow{2}{*}{Tatsächlich} & Mensch & 991                              & 7   \\
+                                   & KI     & 32                               & 966 \\
+      \bottomrule
+    \end{tabular}
+    \subcaption{Binoculars}
+    \label{tab:cm-binoculars}
+  \end{subtable}
+
+  \vspace{0.5cm} % Erzeugt vertikalen Abstand zur letzten Zeile
+
+  % --- ZEILE 3 ---
+  % Tabelle 5 (Links)
+  \begin{subtable}[t]{0.48\textwidth}
+    \centering
+    \begin{tabular}{ll cc}
+      \toprule
+                                   &        & \multicolumn{2}{c}{Vorhergesagt}       \\
+                                   &        & Mensch                           & KI  \\
+      \midrule
+      \multirow{2}{*}{Tatsächlich} & Mensch & 987                              & 11  \\
+                                   & KI     & 425                              & 573 \\
+      \bottomrule
+    \end{tabular}
+    \subcaption{Mehrheitsvotum ($\geq$3 von 4 Detektoren)}
+    \label{tab:cm-majority}
+  \end{subtable}
+  \hfill
+
 \end{table}
 
 \section{Ergebnisse des Vorexperiments 2}
@@ -146,7 +161,7 @@ Vergleicht man die Länge der realen Texte und der generierten Texte fällt auf,
   \label{fig:textlength_zeitverlauf}
 \end{figure}
 
-Über die Zeiträume hinweg zeigt sich, dass die KI-generierten Texte im Mittel doppelt so lang sind als die realen Posts (siehe Tabelle~\ref{table:vergleich_textlänge}). Wie oben beschrieben wurde (siehe Kapitel~\ref{subsec:Hauptexperiment}), soll neben dem Zeitverlauf auch der Einfluss der Textlänge auf die Detektionsleistung untersucht werden. Die Ergebnisse aus der Forschung legen nahe, dass ein positiver Zusammenhang zwischen Textlänge und Detektionsleistung besteht \autocite{chakraborty2023possibilitiesaigeneratedtextdetection,Rashidi_Fennell_Albahra_Hu_Gorbett_2023}. Um diesen Befund auf den mir vorliegenden Daten zu überprüfen, soll eine neue Stichprobe von 3.000 realen Posts aus verschiedenen Klassen von Textlängen gezogen werden.
+Über die Zeiträume hinweg zeigt sich, dass die KI-generierten Texte vor der Trunkierung auf 1500 Zeichen im Mittel doppelt so lang sind wie die realen Posts (siehe Tabelle~\ref{table:vergleich_textlänge}). Wie oben beschrieben wurde (siehe Kapitel~\ref{subsec:Hauptexperiment}), soll neben dem Zeitverlauf auch der Einfluss der Textlänge auf die Detektionsleistung untersucht werden. Die Ergebnisse aus der Forschung legen nahe, dass ein positiver Zusammenhang zwischen Textlänge und Detektionsleistung besteht \autocite{chakraborty2023possibilitiesaigeneratedtextdetection,Rashidi_Fennell_Albahra_Hu_Gorbett_2023}. Um diesen Befund auf den mir vorliegenden Daten zu überprüfen, wird eine Stichprobe von jeweils 3.000 realen und künstlich generierten Posts mit verschiedenen Klassen von Textlängen gebildet.
 
 \textcolor{red}{We further remark that it would be quite difficult to make LLMs exactly equal to human distributions due to the vast diversity within the human population, which may require a large number of samples from an information-theoretic perspective and provide a lower bound on the closeness distance to human distributions. \autocite{chakraborty2023possibilitiesaigeneratedtextdetection}}
 
@@ -167,3 +182,50 @@ Vergleicht man die Länge der realen Texte und der generierten Texte fällt auf,
     \bottomrule
   \end{tabularx}
 \end{table}
+
+In Abbildung~\ref{fig:textlaenge} lässt sich erkennen, dass prinzipiell ein positiver Zusammenhang zwischen der Textlänge und der Erkennungsleistung besteht, der aber zwischen den Detektoren und den beobachteten Metriken variiert. Eine Ausnahme von  diesem grundsätzlichen positiven Zusammenhang bildet RADAR im Hinblick auf False Negative Rate und Recall. Die False Negative Rate des Detektors steigt von 0,6 \% bei einer Textlänge von 0 bis 150 Zeichen auf rund 10,7 \% bei einer Textlänge von 750 bis 900 Zeichen. Der Wert für den Recall von RADAR sinkt im Vergleich zwischen diesen beiden Klassen an Textlängen von 99,4 \% um 10 Prozentpunkte auf 89,3 \%. RADAR weist für diese beiden Metriken dennoch über die Textlängen hinweg den höchsten (Recall) bzw. niedrigsten (FNR) Wert auf. Hinsichtlich der Accuracy fällt auf, dass die Leistung von Binoculars auf eher kürzeren Texten ähnlich zu den anderen Detektoren ist. Ab einer Länge von 150 bis 300 Zeichen steigt die Genauigkeit allerdings deutlich an und bewegt sich fortan auf einem höheren Niveau als die anderen Detektoren und der Mehrheitsentscheid. Interessant ist hierbei auch, dass für Texte zwischen 0 und 150 Zeichen der RoBERTa Base OpenAI Detector den höchsten Wert unter allen Detektoren und dem Ensemble hat. Danach sinkt dessen Leistung aber ab, wenn die Klasse mit einer Textlänge von 150 bis 300 Zeichen betrachtet wird. Werden die Texte daraufhin wieder länger, also ab 300 Zeichen, steigt die Genauigkeit des Detektors wieder an. Für den Recall, den F1-Score und die False Negative Rate zeigt sich für den RoBERTa Base OpenAI Detector ein jeweils ähnliches Bild. Hier sinken Recall und F1-Score zunächst bis zur Klasse der Texte mit Zeichenlängen zwischen 300 und 450 Zeichen und steigen anschließend mit zunehmender Textlänge. Analog dazu zeigt die FNR einen entgegengesetzten Verlauf. \\
+Mit der Ausnahme der Klassen von 150 bis 300 Zeichen und 300 bis 450 Zeichen zeigt der ChatGPT Detector RoBERTa die niedrigste Genauigkeit über die unterschiedlichen Textlängen hinweg. Die Entwicklung der Precision des RoBERTa Base OpenAI Detectors zeigt eine Ähnlichkeit zum Verlauf der Accuracy ebenjenes Detektors. Auch hier gibt es einen „Knick“ in der Klasse von 150 bis 300 Zeichen und danach einen ansteigenden Verlauf. Auffallend ist auch die Precision von RADAR, die bis zu einer Zeichenzahl zwischen 300 und 450 Zeichen einen relativ konstanten Wert aufweist und danach bis auf einen Wert von 72,6 \% steigt.
+Betrachtet man den Recall und die False Positive Rate, zeigt sich für RADAR ein auffälliges Verhältnis. Über alle Textlängenklassen hinweg weist dieser Detektor den höchsten Recall auf. RADAR klassifiziert also die überwiegende Mehrheit der KI-Texte korrekt. Gleichzeitig zeigt der Detektor jedoch die höchste False Positive Rate unter allen Detektoren und dem Mehrheitsentscheid. In den Klassen mit einer Textlänge zwischen 0 und 150 Zeichen bzw. 150 und 300 Zeichen erkennt RADAR fast alle menschlichen Texte fälschlich als KI-generiert. Zwar sinkt die FPR von 99,97 \% mit steigender Textlänge auf ein Niveau von 33,67 \% bei Texten mit einer Länge zwischen 750 und 900 Zeichen, liegt aber dennoch erheblich über den Werten der übrigen Detektoren und dem Ensemble. Die hohen Recall-Werte von RADAR gehen also mit einer hohen False Positive Rate einher, da der Detektor menschliche und auch KI-Texte als künstlich generiert identifiziert. Dieser Umstand spricht für die Annahme, dass RADAR besonders bei kurzen Texten stark dazu tendiert den Inhalt als KI-generiert zu klassifizieren. Damit kann auch die vergleichsweise niedrige Accuracy von RADAR vor allem bei kurzen Texten erklärt werden.
+Der stärkste Effekt der Textlänge ist bei Binoculars neben der Accuracy auch beim F1-Score zu sehen, wo der Wert von 7,7 \% auf 89,1 \% steigt, während bei den anderen Detektoren der Zusammenhang auch, aber in mehr oder weniger deutlich geringerem Ausmaß erkennbar ist. Binoculars zeigt bei kürzeren Texten zunächst einen vergleichsweise niedrigen F1-Score, der sich aber ab der Textlängenklasse von 300 bis 450 Zeichen deutlich und kontinuierlich steigert. Vergleicht man die Precision und den Recall, zeigt sich, dass vor allem die Precision aller Detektoren mit zunehmender Textlänge insgesamt verbessert wird, während der Recall nicht bei allen Detektoren in gleichem Maß ansteigt. Binoculars zeigt eine Steigerung von ca. 40 Prozentpunkten von ca. 60 \% auf fast 100 \% im Hinblick auf die Precision und eine noch deutlichere Verbesserung der Erkennungsleistung in Bezug auf den Recall von knapp 4 \% auf rund 81 \%. Damit zeigt sich auch bei Binoculars für mehrere Metriken ein erkennbarer positiver Zusammenhang zwischen Textlänge und Detektionsleistung.
+Das Ensemble liegt hinsichtlich der beobachteten Metriken über die Textklassen hinweg häufig zwischen den Einzeldetektoren und zeigt eine bessere Leistung als der jeweils schlechteste Einzeldetektor. Der Mehrheitsentscheid zeigt seine Stärken bei längeren Texten im Hinblick auf die Precision und die FPR. Die Accuracy und der F1-Score des Ensembles steigen ebenfalls mit zunehmender Textlänge. Für die längeren Textlängenklassen liegen die Werte für diese beiden Metriken für das Ensemble allerdings unter dem Niveau von Binoculars bzw. RADAR. \\
+Zusammenfassend lässt sich sagen, dass für die evaluierten Detektoren überwiegend ein positiver Zusammenhang zwischen der Länge des Textes und der Detektionsleistung erkennbar ist. Die Stärke dieses Zusammenhangs schwankt allerdings deutlich je nach Detektor und beobachteter Metrik. Bei Binoculars ist der Zusammenhang am prägnantesten, während RADAR ein abweichendes Muster zeigt und bereits bei kurzen Texten einen sehr hohen Recall aufweist. Mit dem hohen Recall von RADAR geht jedoch eine hohe FPR des Detektors über alle Textlängenklassen hinweg einher. Das Ensemble zeigt zwar auch einen positiven Effekt der Textlänge auf die Erkennungsleistung, kann aber die jeweils stärksten Einzeldetektoren nicht übertreffen.
+\begin{figure}[htb]
+  \centering % <-- added
+  \begin{minipage}[t]{.5\textwidth}
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/textlänge/hauptexperiment_textlänge_sample3000_accuracy.png}
+      \caption{Accuracy nach Zeichenzahl}
+      \label{fig:1}
+    \end{subfigure}\hfil % <-- added
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/textlänge/hauptexperiment_textlänge_sample3000_precision.png}
+      \caption{Precision nach Zeichenzahl}
+      \label{fig:2}
+    \end{subfigure}\hfil % <-- added
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/textlänge/hauptexperiment_textlänge_sample3000_recall.png}
+      \caption{Recall nach Zeichenzahl}
+      \label{fig:3}
+    \end{subfigure}
+  \end{minipage}\hfil
+  \begin{minipage}[t]{.5\textwidth}
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/textlänge/hauptexperiment_textlänge_sample3000_f1.png}
+      \caption{F1-Score nach Zeichenzahl}
+      \label{fig:4}
+    \end{subfigure}\hfil % <-- added
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/textlänge/hauptexperiment_textlänge_sample3000_fnr.png}
+      \caption{FNR nach Zeichenzahl}
+      \label{fig:5}
+    \end{subfigure}\hfil % <-- added
+    \begin{subfigure}{\textwidth}
+      \includegraphics[width=\linewidth]{figures/plots/hauptexperiment/textlänge/hauptexperiment_textlänge_sample3000_fpr.png}
+      \caption{FPR nach Zeichenzahl}
+      \label{fig:6}
+    \end{subfigure}
+  \end{minipage}
+  \caption{Verwendete Metriken nach Zeichenzahl für alle Detektoren}
+  \label{fig:textlaenge}
+\end{figure}
+
