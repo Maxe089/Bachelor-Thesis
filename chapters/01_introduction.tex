@@ -29,14 +29,13 @@ Nicht nur die gesellschaftliche Relevanz spricht für die Eignung von Reddit als
 \section{Zielsetzung, Forschungsfragen und Hypothesen}
 Das zentrale Ziel dieser Bachelorarbeit ist die experimentelle Evaluation verschiedener ausgewählter Machine Learning-Modelle hinsichtlich ihrer Fähigkeit zwischen vermeintlich menschlich verfassten und synthetisch erzeugten Reddit-Posts zu differenzieren. Die Erzeugung der synthetischen Texte erfolgt mithilfe des Sprachmodells LLaMA-3.1-8B-Instruct. In der Arbeit sollen die individuellen Leistungen der Detektoren verglichen werden und außerdem untersucht werden, ob die Kombination der Detektoren zu einem Ensemble die Erkennungsleistung im Vergleich zu den einzelnen Modellen verbessert. Neben potenziellen Unterschieden zwischen verschiedenen Veröffentlichungszeiträumen der Posts soll auch der Zusammenhang zwischen der Textlänge und der Detektionsleistung analysiert werden. Zusätzlich wird über eine Schlagwortsuche untersucht, wie häufig in Kommentaren Hinweise auf KI-Verdächtigungen identifiziert werden können und wie sich deren Anteil im Untersuchungszeitraum verändert. \\
 Wichtig zu erwähnen ist, dass sich die gesamte Untersuchung in dieser Arbeit auf die ausgewählten, bereits vortrainierten Detektoren beschränkt. Die synthetischen Texte stammen ausschließlich von LLaMA-3.1-8B-Instruct. Aus diesen Gründen lassen sich keine allgemeingültigen Aussagen für alle verfügbaren Sprachmodelle und Textdomänen machen. \\
-
-Auf Basis der Zielsetzung lassen sich folgende Forschungsfragen ableiten: \\
+Auf Basis der Zielsetzung lassen sich folgende Forschungsfragen ableiten:
 \hypertarget{rq:1}{
     \subsubsection{F\textsubscript{1}: Inwieweit sind etablierte, vortrainierte ML-Detektoren in der Lage, zwischen menschlich verfassten und mittels LLaMA-3.1-8B-Instruct generierten Reddit-Posts zu unterscheiden?}
 }
 
 \hypertarget{rq:2}{
-    \subsubsection{F\textsubscript{2}: Führt die Kombination der vier Einzeldetektoren zu einem Ensemble mit Mehrheitsentscheid zu einer höheren Erkennungsleistung als der jeweils beste Einzeldetektor?}
+    \subsubsection{F\textsubscript{2}: Führt die Kombination der vier Einzeldetektoren zu einem Ensemble mit Mehrheitsentscheid zu einer verbesserten Erkennungsleistung gegenüber den Einzeldetektoren?}
 }
 
 \hypertarget{rq:3}{
@@ -48,13 +47,12 @@ Auf Basis der Zielsetzung lassen sich folgende Forschungsfragen ableiten: \\
 }
 
 Daraus ergeben sich wiederum folgende Hypothesen dieser Arbeit:
-
 \hypertarget{hp:1}{
     \subsubsection{H\textsubscript{1}: Die evaluierten Detektoren unterscheiden sich hinsichtlich ihrer Erkennungsleistung bei der Klassifikation von menschlich verfassten und mittels LLaMA-3.1-8B-Instruct generierten Reddit-Posts.}
 }
 
 \hypertarget{hp:2}{
-    \subsubsection{H\textsubscript{2}: Das Ensemble aus allen vier Detektoren übertrifft die Erkennungsleistung jedes Einzeldetektors.}
+    \subsubsection{H\textsubscript{2}: Das Ensemble aus allen vier Detektoren führt insgesamt zu einer Verbesserung der Erkennungsleistung gegenüber den Einzeldetektoren.}
 }
 
 \hypertarget{hp:3}{
